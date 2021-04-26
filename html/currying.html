@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function add(a, b, c) {
+            return a + b + c
+        }
+
+        function currying(add) {
+            return function addc(...args0) {
+                if (args0.length >= 3) {
+                    return add(...args0)
+                } else {
+                    return function (args1) {
+                        return addc(...args0.concat(args1))
+                    }
+                }
+            }
+        }
+        let addc = currying(add)
+        console.log(addc(1)(2)(3))
+        console.log(addc(1, 2)(3))
+        console.log(addc(1, 2, 3))
+    </script>
+</body>
+
+</html>
