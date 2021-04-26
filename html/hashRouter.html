@@ -40,7 +40,7 @@
                         console.log('e',e,'this',this)
                         let event = e || window.event;
                         event.preventDefault();
-                        window.location.hash = this.getAttribute("href");
+                        window.location.hash = item.getAttribute("href");
                     }, false);
                 });
 
@@ -71,7 +71,7 @@
             vue.init();
         }
 
-        new Vue({
+        Vue({
             routes: [{
                 path: '/home',
                 component: "<h1>主页</h1><a href='https://github.com/biaochenxuying'>https://github.com/biaochenxuying</a>"

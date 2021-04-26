@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id='debounceBtn'>debounce</button>
+    <button id='throttleBtn'>throttle</button>
+    <script>
+        function debounce(callback) {
+            let id;
+            return function () {
+                clearTimeout(id)
+                id = setTimeout(callback, 500)
+            }
+        }
+        function throttle(callback) {
+            let last = +new Date()
+            return function () {
+                let now = +new Date
+                if (now - last > 500) {
+                    callback()
+                    last = now
+                }
+            }
+        }
+        let cb = debounce(() => console.log('click'))
+        debounceBtn.onclick = cb
+        cb = throttle(() => console.log('click'))
+        throttleBtn.onclick = cb
+    </script>
+</body>
+
+</html>
