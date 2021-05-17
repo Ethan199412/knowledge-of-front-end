@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 这是一个利用闭包实现的单例，由于匿名函数拿到了外部函数中的 animal
+        // 变量，导致匿名函数被调用后，getSingle 运行时的栈内存不会被 v8 的
+        // 垃圾回收机制回收，因此 animal 变量会始终被保留下来。在面试时，直接
+        // 解释闭包并不容易，不妨使用这个例子，告诉面试官你既懂闭包，又理解单
+        // 例这一设计模式。
+        
+        function Animal(name) {
+            this.name = name
+            this.eat = function () {
+                console.log('eating')
+            }
+        }
+        function getSingleton() {
+            let animal;
+            return function () {
+                if (!animal) {
+                    animal = new Animal('cat')
+                }
+                return animal
+            }
+        }
+        let f = getSingleton()
+        let cat1 = f()
+        let cat2 = f()
+        console.log(cat1 === cat2)
+    </script>
+</body>
+
+</html>
