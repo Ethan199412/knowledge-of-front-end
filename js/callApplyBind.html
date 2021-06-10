@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 思路：利用一个对象的函数在
+         * 对象上执行时 this 会指向自身
+         * 这个性质，但无法解决 this 上
+         * 会带有这个函数，为了避免变量
+         * 覆盖，使用 symbol 
+         **/
+
+        Function.prototype.myCall = function (instance, ...rest) {
+            let func = this
+            let f = Symbol('f')
+            instance[f] = func
+            let res = instance[f](...rest)
+            delete instance[f]
+            return res
+        }
+
+        Function.prototype.myApply = function (instance, rest) {
+            let func = this
+            let f = Symbol('f')
+            instance[f] = func
+            let res = instance[f](...rest)
+            delete instance[f]
+            return res
+        }
+
+        /** 思路，利用高阶函数和 call 来
+         * 实现 bind，碰到这种问题的时候
+         * 牢记几点，1、原生的 bind 的输入
+         * 是什么，返回的是什么，什么变了
+         * 2、bind 内部的 this 代表什么
+         * 3、函数内部的函数能否直接用 this
+         * */
+        Function.prototype.myBind = function (instance, ...rest) {
+            let func = this
+            return function (...args) {
+                func.call(instance, ...rest.concat(args))
+            }
+        }
+
+        function printThis(a, b) {
+            console.log(this, a, b)
+        }
+
+        obj = {
+            num: 1
+        }
+
+        printThis.call(obj, 1, 2)
+        printThis.myCall(obj, 1, 2)
+        printThis.apply(obj, [1, 2])
+        printThis.myApply(obj, [1, 2])
+
+        let f = printThis.bind(obj, 1)
+        f(2)
+        f = printThis.myBind(obj, 1)
+        f(2)
+    </script>
+</body>
+
+</html>
