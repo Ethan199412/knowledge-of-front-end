@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function promiseFunc() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(1)
+                }, 200)
+            })
+        }
+
+        async function func() {
+            let res = await promiseFunc()
+            console.log(res)
+        }
+
+        function asyncStyle() {
+            func()
+            console.log(2)
+        }
+
+        function promiseStyle() {
+            promiseFunc().then(res => {
+                console.log(res)
+            })
+            console.log(2)
+        }
+
+        /** 
+         * 不要把 promise 和 async 这两个东西想的如此
+         * 高大上，其实它们都是为了解决回调地狱而存在的
+         * async 仅仅是 es7 给 promise 加的语法糖，写法
+         * 不一样，道理是一模一样的
+         * */
+
+        // let's make a comparison
+        asyncStyle()
+        //promiseStyle()
+    </script>
+</body>
+
+</html>

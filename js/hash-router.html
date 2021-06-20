@@ -35,7 +35,6 @@
             vue.routes = parameters.routes || [];
             vue.init = function() {
                 document.querySelectorAll(".router").forEach((item, index) => {
-                    console.log('item',item,'index',index)
                     item.addEventListener("click", function(e) {
                         console.log('e',e,'this',this)
                         let event = e || window.event;
