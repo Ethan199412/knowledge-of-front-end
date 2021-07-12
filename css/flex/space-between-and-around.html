@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /** 这个例子在把 space-between 和 space-around 进行
+        * 了比较，需要注意的是 space-around 每个元素的两边
+        * 留白都是相等的，但是 space-between 两边的元素是贴紧
+        * 边界的。 */
+        #container-between{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom:100px
+        }
+        #container-between div{
+            width: 200px;
+            height: 100px;
+            background-color: pink;
+        }
+        #container-around{
+            display: flex;
+            justify-content: space-around;
+        }
+        #container-around div{
+            width: 200px;
+            height: 100px;
+            background-color: salmon;
+        }
+    </style>
+</head>
+<body>
+    <div id='container-between'>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id='container-around'>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>
