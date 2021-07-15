@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 20px;
+            height: 20px;
+            margin-bottom: 20px;
+        }
+        .box:hover{
+            width: 100px;
+            height: 100px;
+        }
+
+        .box1{
+            transition: 1s;
+            background-color:yellowgreen;
+        }
+
+        .box2{
+            transition: 1s height;
+            background-color: orange;
+        }
+
+        .box3{
+            transition-property: width, height;
+            transition-timing-function: ease-in;
+            transition-delay: 1s, 0s;
+            transition-duration: 1s, 0.2s;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class='box box1'></div>
+    <div class='box box2'></div>
+    <div class='box box3'></div>
+    <script>
+        /**
+         * css transition 是 css 动画中一个关键的关键词
+         * 描述的是一个 dom 变化前后之间的两种状态是如何
+         * 改变的，变化后的状态往往是 css 伪类。
+         * transition-duration: 渐变总时间
+         * transition-delay: 变化前的延迟
+         * transition-timing-function: 变化快慢的时间函数
+         * transition-property: 那个属性要渐变
+    </script>
+</body>
+</html>

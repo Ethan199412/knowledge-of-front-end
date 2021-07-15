@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 后端想要的数据各式
+         * */
+        class TheFormatBEWant {
+            constructor(a, b, c) {
+                this.a = a
+                this.b = b
+                this.c = c
+            }
+            a = 0
+            b = 0
+            c = 0
+        }
+        /**
+         * 当前我们有的数据格式
+         * */
+        class TheRawDataWeHave {
+            constructor(obj, c) {
+                this.obj = obj
+                this.c = c
+            }
+            obj = {
+                a: 0,
+                b: 0
+            }
+            c = 0
+        }
+        /**
+         * 适配器，负责把我们的原始数据格式
+         * 转换成后端需要的工具类
+         * */
+        class Adapter {
+            constructor(rawData) {
+                const res = new TheFormatBEWant(
+                    rawData.obj.a,
+                    rawData.obj.b,
+                    rawData.c
+                )
+                this.res = res
+            }
+            getObjectBEWant() {
+                return this.res
+            }
+        }
+        const rawData = new TheRawDataWeHave({ a: 10, b: 20 }, 30)
+        console.log('rawData', rawData)
+        const objBEWant = new Adapter(rawData).getObjectBEWant()
+        console.log('objBEWant', objBEWant)
+    </script>
+</body>
+
+</html>
