@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class MsgHandler {
+            static #sendMsg = (msg) => {
+                console.log(msg)
+            }
+            static sendMsgProxy = (msg) => {
+                let msgFilter = msg.replace(/伞\s*兵/g, '*')
+                MsgHandler.#sendMsg(msgFilter)
+            }
+        }
+        MsgHandler.sendMsgProxy('伞兵一号卢本伟准备就绪, 卢本伟是   伞  兵')
+    </script>
+</body>
+
+</html>
