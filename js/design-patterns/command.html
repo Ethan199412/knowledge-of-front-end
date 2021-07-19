@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 说实话命令模式是一个让我比较 confuse 的一种设计
+         * 调用者不直接调用执行者具体的函数，而是调用 execute
+         * 方法，execute 方法会通过 type 再去调用具体的函数，
+         * 但是我觉得这违背如无必要，勿增实体的设计原则。
+         * */
+        class ShopManager {
+            #data = {}
+            buyApple(customerId, number) {
+                console.log(customerId + ' buy ' + number + ' apples.')
+                if (!this.#data[customerId]) {
+                    this.#data[customerId] = {}
+                }
+                this.#data[customerId] = number
+            }
+            checkAppleNumber(customerId) {
+                console.log('apple number is ' + this.#data[customerId])
+            }
+            giveApple(customerId, number) {
+                if (!this.#data[customerId] || this.#data[customerId] < number) {
+                    console.log("you can't give others")
+                    return
+                }
+                this.#data[customerId] -= number
+                console.log('you give ' + number + ' apples to others')
+            }
+        }
+
+        ShopManager.prototype.executor = function (...args) {
+            let manager = this
+            let action = args[0]
+            manager[action](...args.slice(1))
+        }
+
+        let shopManager = new ShopManager()
+        shopManager.executor('buyApple', 'ethan1994', 5)
+        shopManager.executor('giveApple', 'ethan1994', 3)
+        shopManager.executor('checkAppleNumber', 'ethan1994')
+    </script>
+</body>
+
+</html>

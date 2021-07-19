@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 我们先想这么一种情形，假如小明参加了一次考试
+         * 而小明妈非常关注他的成绩，小明需要在我考试成绩发布
+         * 以后把成绩告诉小明妈，有一种方案是小明参加考试后
+         * 不断地去问考试机构他的成绩出来了吗，小明烦，教育机构
+         * 也烦，另外一种是小明直接告诉教育机构，等你们出分以后
+         * 告诉我一声，我需要把成绩再告诉我妈。那么第二种就是
+         * 观察者模式，或者说，发布-订阅模式。
+         * */
+        function tellMom(score) {
+            console.log('mom knows his grade is: ' + score)
+        }
+
+        class Observer {
+            #subscribes = []
+            subscribe = (event, callback) => {
+                if (!this.#subscribes[event]) {
+                    this.#subscribes[event] = []
+                }
+                this.#subscribes[event].push(callback)
+            }
+            publish = (event, score) => {
+                this.#subscribes[event].forEach(cb => {
+                    cb(score)
+                })
+            }
+        }
+        let observer = new Observer(),
+            event = 'XIAOMING_GET_SCORE'
+
+        observer.subscribe(event, tellMom)
+        setTimeout(() => {
+            observer.publish(event, 85)
+        },500)
+
+        /** 这种模式的优点是：
+         * 1、你不用来回来去问了。
+         * 2、解决了异步的问题，无论什么时候出分我都不怕，教育
+         * 机构已经答应我一旦出分就告诉我了。
+         * 缺点：
+         * 1、当订阅者众多但迟迟出不了分数时，大量的函数都被保存在
+         * 观察者对象中，内存变大。
+         * 2、数据流转的耦合降低，当代码复杂时，可能不好读懂
+    </script>
+</body>
+
+</html>
