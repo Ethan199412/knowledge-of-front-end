@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 500px;
+            width: 500px;
+            background-color: pink;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .box {
+            margin-left: 100px;
+            overflow-y: hidden;
+            height: 1000px;
+            width: 400px;
+            background-color: orange;
+        }
+
+        .box1 {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background-color: palegoldenrod;
+            top: 100px;
+            left: 100px;
+            font-weight: bold;
+        }
+
+        .box2 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: palegoldenrod;
+            top: 100px;
+            left: 100px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='container'>
+        <div class='box'>
+            <div class='box1'>
+                我是 fixed
+            </div>
+        </div>
+    </div>
+    <div class='container'>
+        <div class='box' style="position: relative; font-weight: bold;">
+            我是 relative
+            <div class='box2'>
+                我是 absolute
+            </div>
+        </div>
+    </div>
+    <script>
+        /** 
+        * fixed 相对的是整个窗口，和 relative 没有任何关系
+        * absolute 相对的是离自己最近的 relative 盒子进行
+        * 定位 
+        */
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            margin-bottom: 10px
+        }
+
+        .box:hover{
+            animation: 1s rainbow
+        }
+
+        .box1{
+            width: 120px;
+            height: 120px;
+            background-color: yellowgreen;
+            margin-bottom: 20px;
+        }
+
+        .box1:hover{
+            /* 变化总时长 1s，动画名称 rainbow*/
+            animation: 1s rainbow 3 alternate;
+        }
+
+        /* 刚学 css 动画的同学可能会觉得不好记，我们可以
+        * 这么记，写在普通的样式里面的代表时间轴（纵轴）
+        * 写在 @keyframes 后面的代表状态（横轴）
+        */
+        @keyframes rainbow {
+            /* 0.2s 时渐变变成红色，宽高为 50px 的盒子 */
+            20% {
+                background-color: #c00;
+                width: 50px;
+                height: 50px;
+                margin-left: 25px;
+                margin-top: 25px;
+            }
+            /* 0.5s 时，渐变成橙色，宽高为 200px 的盒子 */
+            50% {
+                background-color: orange;
+                width: 200px;
+                height: 200px;
+            }
+
+            /* 1s 时，渐变成宽高为 100，颜色为黄绿色，且透明度为 30% 的盒子 */
+            100% {
+                background-color: yellowgreen;
+                width: 100px;
+                height: 100px;
+                opacity: 30%;
+            }
+        }
+
+        .box2{
+            width: 200px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            animation-play-state: paused;
+            background-color: aqua;
+        }
+
+        .box2:hover{
+            animation-play-state: running;
+        }
+
+        @keyframes spin{
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class='box'></div>
+    <div class='box1'></div>
+    <div class='box2'></div>
+</body>
+
+</html>
