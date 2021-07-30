@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+ 
+<head>
+    <meta charset="UTF-8">
+</head>
+ 
+<body>
+ 
+    <div id="showhere"></div>
+    Receiving iframe.
+    <script>
+        window.addEventListener('message', function (event) {
+            console.log(`Received ${event.data} from ${event.origin}`);
+            document.getElementById('showhere').innerHTML += event.data;
+        });
+    </script>
+ 
+</body>
+ 
+</html>

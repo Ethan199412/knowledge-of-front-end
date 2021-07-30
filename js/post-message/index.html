@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <form id="form">
+        <input type="text" placeholder="Enter message" name="message" autocomplete="off">
+        <input type="submit" value="Click to send">
+    </form>
+
+    <iframe src="./iframe.html" id="iframe" style="display:block;height:300px"></iframe>
+
+    <script>
+        // 表单提交时的时间处理函数
+        form.onsubmit = function () {
+            let iframe = document.querySelector('#iframe')
+
+            // iframe.contentWindow 是 iframe 的 window 对象
+            iframe.contentWindow.postMessage(this.message.value, 'http://localhost:3000/iframe.html');
+            return false;
+        };
+    </script>
+
+</body>
+
+</html>
