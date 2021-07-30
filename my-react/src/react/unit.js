@@ -76,15 +76,31 @@ class ReactNativeUnit extends Unit {
   }
 }
 
+class ReactCompositUnit extends Unit {
+  getMarkUp(rootId) {
+    this._rootId = rootId
+    let { type: Component, props } = this.currentElement
+    let componentInstance = new Component(props)
+    let reactComponentRender = componentInstance.render()
+    let reactCompositUnitInstance = createReactUnit(reactComponentRender)
+    let markup = reactCompositUnitInstance.getMarkUp(rootId)
+    return markup
+  }
+}
 export default function createReactUnit(element) {
   // 数字和字符串
   if (COMMON_TYPE.has(typeof element)) {
     //console.log("[p0]");
     return new ReactTextUnit(element);
   }
-  // react 组件
+  // react 元素
   if (typeof element === "object" && typeof element.type === "string") {
     //console.log("[p1] element", element);
     return new ReactNativeUnit(element);
+  }
+
+  // react 组件
+  if (typeof element === 'object' && typeof element.type === 'function') {
+    return new ReactCompositUnit(element)
   }
 }
