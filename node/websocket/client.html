@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web socket demo</title>
+</head>
+
+<body>
+    <form onsubmit="return false">
+        <h3>聊天室</h3>
+        <textarea id='responseText' style='width:500px;height: 300px;'></textarea>
+        <br>
+        <input type='text' name='message' style='width:300px' value='default' />
+        <input type='button' value='发送' onclick="send(this.form.message.value)" value="清空聊天记录" />
+        <input type='button' value='清空' onclick="javascript:document.querySelector('#responseType').value=''" />
+    </form>
+    <script>
+        /** 该应用是一个基于 web socket 的聊天室
+         * 用 websocket 编写聊天室其实是非常方便的
+         * 其核心在于服务端可以主动推送消息给客户端
+         * 当一个用户连接 web socket 服务器的时候，
+         * 服务器需要更新所有的 client，如果你用 http
+         * 协议的话，由于没有服务端主动推送的能力
+         * 所以你需要用轮询的方法不断地去询问服务器
+         * 效率低，浪费资源
+         * */
+        window.socket = new WebSocket('ws://192.168.31.201:3003/ws')
+        window.dom = document.querySelector('#responseText')
+
+        socket.onmessage = function (event) {
+            dom.value = responseText.value + '\n' + event.data
+        }
+        socket.onopen = function (event) {
+            dom.value = '连接开启'
+        }
+        socket.onclose = function (event) {
+            dom.value = responseText.value + '\n连接关闭'
+        }
+
+        function send(message) {
+            if (socket.readyState == WebSocket.OPEN) {
+                socket.send(message)
+            } else {
+                alert('并未连接')
+            }
+        }
+    </script>
+</body>
+
+</html>
