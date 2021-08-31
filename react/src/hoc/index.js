@@ -54,7 +54,7 @@ class HocDemo extends Component {
                 ))}
                 <Input value={value} onChange={this.handleChange} />
                 <Button onClick={this.handleAdd}>添加评论</Button>
-                <Blog />
+                {/* <Blog /> */}
             </div>
         );
     }
