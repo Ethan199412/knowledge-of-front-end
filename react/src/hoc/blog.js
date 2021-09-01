@@ -7,37 +7,37 @@ class Blog extends Component {
         super(props);
         this.state = {
             // 假设 "DataSource" 是个全局范围内的数据源变量
-            blogPost: DataSource.getBlogPost(),
+            //blogPost: DataSource.getBlogPost(),
             value: ''
         };
     }
 
-    componentDidMount() {
-        // 订阅更改
-        DataSource.listen('updateBlog', this.handleUpdate);
-    }
+    // componentDidMount() {
+    //     // 订阅更改
+    //     DataSource.listen('updateBlog', this.handleUpdate);
+    // }
 
-    componentWillUnmount() {
-        // 清除订阅
-        DataSource.removeListener('updateBlog')
-    }
+    // componentWillUnmount() {
+    //     // 清除订阅
+    //     DataSource.removeListener('updateBlog')
+    // }
 
-    handleUpdate = (e) => {
-        // 当数据源更新时，更新组件状态
-        this.setState({
-            blogPost: DataSource.getBlogPost()
-        });
-    }
+    // handleUpdate = (e) => {
+    //     // 当数据源更新时，更新组件状态
+    //     this.setState({
+    //         blogPost: DataSource.getBlogPost()
+    //     });
+    // }
 
-    handleClick = () => {
-        DataSource.updateBlogPost("I'm lee")
-    }
+    // handleClick = () => {
+    //     DataSource.updateBlogPost("I'm lee")
+    // }
 
     render() {
-        console.log('blog',this.state.blogPost)
+        console.log('blog',this.props.data)
         return <div>
-            <TextBlock text={this.state.blogPost} />
-            <Button onClick={this.handleClick} >更新博客</Button>
+            <TextBlock text={this.props.data} />
+            {/* <Button onClick={this.handleClick} >更新博客</Button> */}
         </div>;
     }
 }

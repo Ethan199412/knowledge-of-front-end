@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import DataSource from './dataSource'
 import Blog from './blog'
-import HocDemo from './index'
+import Comments from './comments'
 
-function withSubscription(WrappedComponent, selectedData) {
+function withSubscription(WrappedComponent, selectedData, updateData) {
     return class extends Component {
         constructor(props) {
             super(props)
@@ -13,6 +13,7 @@ function withSubscription(WrappedComponent, selectedData) {
         }
 
         handleChange = () => {
+            console.log('[p1] hoc',selectedData(DataSource, this.props))
             this.setState({
                 data: selectedData(DataSource, this.props)
             })
@@ -28,7 +29,7 @@ function withSubscription(WrappedComponent, selectedData) {
 
         render() {
             return <WrappedComponent
-                data={this.props.data}
+                data={this.state.data}
                 {...this.props}
             />
         }
@@ -36,8 +37,8 @@ function withSubscription(WrappedComponent, selectedData) {
 }
 
 export const CommentListWithSubscription = withSubscription(
-    HocDemo,
-    (DataSource) => DataSource.getComments()
+    Comments,
+    (DataSource) => DataSource.getComments(),
 );
 
 export const BlogPostWithSubscription = withSubscription(

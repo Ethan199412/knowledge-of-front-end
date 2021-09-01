@@ -7,10 +7,13 @@ class DataSource {
         {
             id: 1,
             text: '测试哈哈哈'
+        },{
+            id:2,
+            text:'heihei'
         }
     ]
 
-    #blogPost = 'blog haha'
+    #blogPost = 'This is a blog: Last day I went to github and sign up a new account.'
 
     getComments = () => {
         console.log('[p5] getComments')

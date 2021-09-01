@@ -1,70 +1,43 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Fragment } from 'react';
+import Comments from './comments';
+import Blog from './blog';
+import { CommentListWithSubscription, BlogPostWithSubscription } from './hoc'
 import { Button, Input } from 'antd'
 import DataSource from './dataSource'
-import Blog from './blog'
+/** 高阶组件对于组件复用来说，它的逻辑就是把相同的逻辑放在，把两种
+ * 组件都需要的一些功能放到高阶组件集中起来，剩下的功能让组件自己去
+ * 完成。达到节省代码量，复用代码的目的
+ * */ 
 
-class HocDemo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            // 假设 "DataSource" 是个全局范围内的数据源变量
-            comments: DataSource.getComments(),
-            value: ''
-        };
+class HocDemo extends PureComponent {
+    state = {
+        comment: ''
     }
-
-    componentDidMount() {
-        // 订阅更改
-        DataSource.listen('change', this.handleUpdate);
-    }
-
-    componentWillUnmount() {
-        // 清除订阅
-        //DataSource.removeChangeListener(this.handleChange);
-        DataSource.removeListener('change')
-    }
-
-    handleUpdate = (e) => {
-        // 当数据源更新时，更新组件状态
-        this.setState({
-            comments: DataSource.getComments()
-        });
-    }
-
-    handleAdd = () => {
-        DataSource.add({
-            id: DataSource.getComments().length + 1,
-            text: this.state.value
-        })
-    }
-
     handleChange = (e) => {
-        console.log('e', e.target.value)
         this.setState({
-            value: e.target.value
+            comment: e.target.value
         })
     }
-
-    render() {
-        const { value } = this.state
-        return (
-            <div>
-                {this.state.comments.map((comment) => (
-                    <Comment comment={comment} key={comment.id} />
-                ))}
-                <Input value={value} onChange={this.handleChange} />
-                <Button onClick={this.handleAdd}>添加评论</Button>
-                {/* <Blog /> */}
-            </div>
-        );
+    handleAddComment = () => {
+        DataSource.add({ id: 3, text: this.state.comment })
     }
-}
-
-class Comment extends Component {
+    handleUpdateBlog = () => {
+        DataSource.updateBlogPost('I visit youtube and I think the ad in it is like a shit.')
+    }
     render() {
-        return (<div>
-            {this.props.comment.text}
-        </div>)
+        return (
+            <Fragment>
+                {/* <Comments />
+                <Blog />
+                <br/> */}
+                <CommentListWithSubscription />
+                <hr />
+                <BlogPostWithSubscription />
+                <Input onChange={this.handleChange} />
+                <Button onClick={this.handleAddComment}>添加评论</Button>
+                <Button onClick={this.handleUpdateBlog}>更新博客</Button>
+            </Fragment>
+        );
     }
 }
 
