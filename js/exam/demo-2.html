@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        name = 'haha'
+        obj = {
+            name: '123',
+            f: function () {
+                console.log(this.name)
+            },
+            f1: () => {
+                console.log(this.name)
+            }
+        }
+        let f = obj.f
+        let f1 = obj.f1
+        f() // 一个函数在 Window 对象里执行，所以 this 是 Window
+        f1() // 箭头函数没有自己的 this，看 Window 的 this 指的是谁，Window 的 this 还是 Window
+        obj.f() // 一个函数在 obj 对象里执行，this 是 obj
+        obj.f1() // 一个箭头函数在 obj 里执行，它没有自己的 this，obj 的 this 指的是 Window
+
+    </script>
+</body>
+
+</html>
