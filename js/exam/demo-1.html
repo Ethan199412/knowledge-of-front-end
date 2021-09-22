@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 首先打印 5 放入宏任务，先往下看，
+        * 打印 1 放入微任务，执行 f 函数
+        * 打印 2，3，打印 4 放入微任务，然后
+        * 从微任务里取出打印 1，再放入一个打印 1
+        * 到微任务，打印 4，再打印 1，最后从
+        * 宏任务里取出打印 5，所以是 231415
+        * */
+        setTimeout(() => {
+            console.log(5)
+        })
+
+        new Promise((resolve, reject) => {
+            resolve(1)
+        }).then(res => {
+            console.log(res)
+            return res
+        }).then(res => {
+            console.log(res)
+        })
+
+        async function f() {
+            console.log(2)
+            await f1()
+            console.log(4)
+        }
+
+        async function f1() {
+            console.log(3)
+        }
+
+        f()
+    </script>
+</body>
+
+</html>
