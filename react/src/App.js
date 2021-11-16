@@ -8,7 +8,11 @@ import { Router, Route, BrowserRouter, Link, Switch, HashRouter } from 'react-ro
 import RefDemo from './ref'
 import ContextDemo from './context'
 import HocDemo from './hoc'
+<<<<<<< HEAD
 import Test from './test'
+=======
+import MobxDemo from './mobx'
+>>>>>>> 71c9d77150ed451f1d36adf5dada380d1fd02bb7
 
 const { SubMenu } = Menu;
 
@@ -52,12 +56,19 @@ class App extends Component {
             </Menu.Item>
 
             <Menu.Item key="4">Hooks</Menu.Item>
+
+            <Menu.Item key="5">
+              <Link to='/mobx'>
+                Mobx
+              </Link>
+            </Menu.Item>
           </Menu>
           <div className='container'>
             <Switch>
               <Route path='/ref' component={RefDemo} />
               <Route path='/context' component={ContextDemo} />
               <Route path='/hoc' component={HocDemo} />
+              <Route path='/mobx' component={MobxDemo} />
             </Switch>
           </div>
         </BrowserRouter>
