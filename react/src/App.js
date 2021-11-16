@@ -8,6 +8,7 @@ import { Router, Route, BrowserRouter, Link, Switch, HashRouter } from 'react-ro
 import RefDemo from './ref'
 import ContextDemo from './context'
 import HocDemo from './hoc'
+import Test from './test'
 
 const { SubMenu } = Menu;
 
@@ -23,6 +24,7 @@ class App extends Component {
     console.log('[p0] props', this.props)
     return (
       <div className='app' style={{ display: 'flex' }}>
+        <Test/>
         <BrowserRouter>
           <Menu
             onClick={this.handleClick}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 请用 promise 解决回调地狱，提示：重新设计 f */
+        function f(name, callback) {
+            setTimeout(() => {
+                console.log(name)
+                callback()
+            }, 200)
+        }
+        f(1, () => {
+            f(2, () => {
+                f(3, () => {
+                })
+            })
+        })
+
+        /*
+        function f1(name) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log(name)
+                    resolve()
+                }, 200)
+            })
+        }
+
+
+        f1(1).then(() => {
+            return f1(2)
+        }).then(() => {
+            return f1(3)
+        })
+        */
+
+    </script>
+</body>
+
+</html>
