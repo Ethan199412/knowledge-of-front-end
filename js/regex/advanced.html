@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 捕获年月日
+        let arr = /(\d{4})-(\d{1,2})-(\d{1,2})/.exec('2021-11-12')
+        console.log('[p0]', { arr })
+
+        // 只捕获年，日，不捕获月，我只想用小括号的分组功能，但并不想用捕获功能
+        arr = /(\d{4})-(?:\d){1,2}-(\d{1,2})/.exec('2021-11-12')
+        console.log('[p1]', { arr })
+    </script>
+</body>
+
+</html>
