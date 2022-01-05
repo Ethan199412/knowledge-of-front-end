@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 100px;
+            width: 100px;
+            background-color: skyblue;
+            margin: 10px;
+        }
+
+        .container {
+            overflow: hidden;
+        }
+
+        .container2 {
+            border: 5px solid red;
+        }
+
+        .box2 {
+            height: 200px;
+            width: 200px;
+            background-color: orange;
+        }
+
+        .blank {
+            height: 110px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 因为没有形成两个独立的 bfc 而外边距重叠，其大小为外边距最大值-->
+    <div class="box"></div>
+    <div class="box"></div>
+    <hr />
+    <!-- container 属性是 overflow: hidden，形成了 bfc，因此不再有外边距重叠现象 -->
+    <div class="container">
+        <div class="box"></div>
+    </div>
+    <div class="container">
+        <div class="box"></div>
+    </div>
+    <hr>
+    <!-- float 脱离文档流跑到 container2 下面来了 -->
+    <div class="container2">
+        <div class="box" style="float:left"></div>
+    </div>
+    <div class="blank"></div>
+    <hr>
+    <!-- 父容器生成 bfc 可以起到清除浮动的作用 -->
+    <div class="container2" style="overflow:hidden">
+        <div class="box" style="float:left"></div>
+    </div>
+    <hr>
+
+    <div class="box" style="float:left"></div>
+    <div class="box2"></div>
+    <hr>
+    
+    <div class="box" style="float:left"></div>
+    <div class="box2" style="overflow:hidden"></div>
+    <hr>
+</body>
+
+</html>
