@@ -8,11 +8,7 @@ import { Router, Route, BrowserRouter, Link, Switch, HashRouter } from 'react-ro
 import RefDemo from './ref'
 import ContextDemo from './context'
 import HocDemo from './hoc'
-<<<<<<< HEAD
-import Test from './test'
-=======
 import MobxDemo from './mobx'
->>>>>>> 71c9d77150ed451f1d36adf5dada380d1fd02bb7
 
 const { SubMenu } = Menu;
 
