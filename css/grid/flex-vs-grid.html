@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            font-size: 12px;
+        }
+        .box {
+            background-color: orange;
+            margin: 5px;
+            font-size: 4em;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .box2,
+        .box3 {
+            width: 100px;
+            height: 100px;
+        }
+
+        .box1 {
+            width: 210px;
+            height: 210px;
+            line-height: 210px;
+        }
+
+        .box4 {
+            width: 100px;
+            height: 320px;
+            line-height: 320px;
+        }
+
+        .box5 {
+            width: 320px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- flex 的直接下级元素会创建 bfc -->
+        <div class="flex">
+            <div>
+                <div class="flex">
+                    <div class="box box2">2</div>
+                    <div class="box box3">3</div>
+                </div>
+                <div class="box box1">1</div>
+            </div>
+            <div class="box box4">4</div>
+        </div>
+        <div class="box box5">5</div>
+    </div>
+</body>
+
+</html>

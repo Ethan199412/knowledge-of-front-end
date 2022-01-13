@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            font-size: 12px;
+        }
+
+        .container1 {
+            overflow: hidden;
+        }
+
+        .container2 {
+            float: left;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            background-color: orange;
+            float: left;
+            font-size: 4em;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .box1 {
+            width: 210px;
+            height: 210px;
+            float: none;
+            line-height: 210px;
+        }
+
+        .box5 {
+            float: none;
+            width: 320px;
+            height: 100px;
+
+        }
+
+        .box4 {
+            width: 100px;
+            height: 320px;
+            line-height: 320px;
+        }
+
+        .bfc {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 用 float 可以实现与 grid 相同的效果，但实现难度大且不如 grid 清晰，同时需要了解 bfc 相关的知识 -->
+    <div class="container">
+        <div class="bfc">
+            <div class="container2">
+                <!-- 需要用 bfc 清除浮动 -->
+                <div class="bfc">
+                    <div class="box box2">2</div>
+                    <div class="box box3">3</div>
+                </div>
+
+                <div class="box box1">1</div>
+            </div>
+            <div class="box box4">4</div>
+        </div>
+        <div class="box box5">5</div>
+    </div>
+</body>
+
+</html>
