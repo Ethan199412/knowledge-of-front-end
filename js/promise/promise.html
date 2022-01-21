@@ -52,6 +52,7 @@
                 })
                 this.status = RESOLVED
             }
+
             reject = (err) => {
                 this.err = err
                 this.onRejectQueue.forEach(f => {
@@ -59,67 +60,83 @@
                 })
                 this.status = REJECTED
             }
-        }
 
-        MyPromise.prototype.then = function (onResolve, onReject) {
-            let promise = this
-            /** 
-            * 如果已经拿到了结果，那么直接执行 onResolve 函数
-            * 并且把结果 resolve 掉，resolve 之后，下一个 then
-            * 可以在 then 里面的 onResolve 里面拿到 result 这
-            * 个值
-            * */
-            if (promise.status === RESOLVED) {
-                return new MyPromise((resolve, reject) => {
-                    let result = onResolve(promise.value)
-                    resolve(result)
-                })
-
-            } else if (promise.status === REJECTED) {
-                return new MyPromise((resolve, reject) => {
-                    let result = onReject(promise.err)
-                    reject(result)
-                })
-            }
-            /**
-             * 如果尚未拿到结果，那么 onResolve 函数并不能立刻执行，
-             * 所以当前的 promise 需要用一个队列去存下来下一个 promise
-             * executor 的逻辑。当第一个 promise 的状态变成 resolve
-             * 的时候，队列里面的 executor 会被拿出来执行
-             * */
-            else if (promise.status == PENDING) {
-                return new MyPromise((resolve, reject) => {
-                    promise.onResolveQueue.push(() => {
-                        let result = onResolve(promise.value)
+            then = (onResolve, onReject) => {
+                /** 
+                * 如果已经拿到了结果，那么直接执行 onResolve 函数
+                * 并且把结果 resolve 掉，resolve 之后，下一个 then
+                * 可以在 then 里面的 onResolve 里面拿到 result 这
+                * 个值
+                * */
+                if (this.status === RESOLVED) {
+                    return new MyPromise((resolve, reject) => {
+                        let result = onResolve(this.value)
                         resolve(result)
                     })
-                    promise.onRejectQueue.push(() => {
-                        let result = onReject(promise.err)
-                        resolve(result)
+
+                } else if (this.status === REJECTED) {
+                    return new MyPromise((resolve, reject) => {
+                        let result = onReject(this.err)
+                        reject(result)
                     })
-                })
+                }
+                /**
+                 * 如果尚未拿到结果，那么 onResolve 函数并不能立刻执行，
+                 * 所以当前的 promise 需要用一个队列去存下来下一个 promise
+                 * executor 的逻辑。当第一个 promise 的状态变成 resolve
+                 * 的时候，队列里面的 executor 会被拿出来执行
+                 * */
+                else if (this.status == PENDING) {
+                    return new MyPromise((resolve, reject) => {
+                        this.onResolveQueue.push(() => {
+                            // result 有可能还是一个 promise
+                            let result = onResolve(this.value) // onResolve e.g. (res)=>{return promise}
+                            if (result instanceof MyPromise) {
+                                result.then(res => {
+                                    // 拿到 promise 的返回值以后，传给下一个 promise
+                                    resolve(res)
+                                })
+                                return
+                            }
+                            resolve(result)
+                        })
+                        this.onRejectQueue.push(() => {
+                            let err = onReject(this.err)
+                            if (err instanceof MyPromise) {
+                                err.then(res => {
+                                    // 拿到 promise 的返回值以后，传给下一个 promise
+                                    resolve(res)
+                                })
+                                return
+                            }
+                            resolve(result)
+                        })
+                    })
+                }
             }
         }
 
-        function func() {
-            return new Promise(resolve => {
-                this.setTimeout(() => {
-                    console.log('func')
-                    resolve(200)
-                }, 200)
+        let p1 = function () {
+            return new MyPromise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(5)
+                }, 1000)
             })
         }
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve(1)
-            }, 200)
-        }).then(async res => {
-            let x = await func()
-            console.log(x)
-            return x
+
+        let p2 = function () {
+            return new MyPromise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(7)
+                }, 1000)
+            })
+        }
+
+        p1().then(res => {
+            console.log('res', res)
+            return p2()
         }).then(res => {
-            console.log(res)
-            return res + 1
+            console.log('res', res)
         })
     </script>
 </body>
