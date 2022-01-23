@@ -24,7 +24,7 @@ class App extends Component {
     console.log('[p0] props', this.props)
     return (
       <div className='app' style={{ display: 'flex' }}>
-        <Test/>
+        {/* <Test/> */}
         <BrowserRouter>
           <Menu
             onClick={this.handleClick}
