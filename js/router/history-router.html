@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="/red">turn red</a></li>
+        <li><a href="/blue">turn blue</a></li>
+        <li><a href="/green">turn green</a></li>
+    </ul>
+
+
+    <script>
+        class Routers {
+            constructor() {
+                this.routes = {};
+                // window.addEventListener('popstate', e => {
+                //     const path = e.state && e.state.path;
+                //     this.routes[path] && this.routes[path]();
+                // })
+            }
+
+            init(path) {
+                history.replaceState({ path: path }, null, path);
+                this.routes[path] && this.routes[path]();
+            }
+
+            // 把路由和回调函数关联上
+            route(path, callback) {
+                this.routes[path] = callback || function () { };
+            }
+
+            go(path) {
+                console.log('[p2]', { path })
+                history.pushState({ path: path }, null, path);
+                this.routes[path] && this.routes[path]();
+            }
+        }
+
+        window.Router = new Routers();
+
+        function changeBgColor(color) {
+            console.log('[p0]', { color })
+            content.style.background = color;
+        }
+
+        console.log('[p1]', { location })
+        Router.route(location.pathname, () => {
+            changeBgColor('yellow');
+        });
+        Router.route('/red', () => {
+            changeBgColor('red');
+        });
+        Router.route('/green', () => {
+            changeBgColor('green');
+        });
+        Router.route('/blue', () => {
+            changeBgColor('blue');
+        });
+
+        const content = document.querySelector('body');
+        Router.init(location.pathname);
+
+        const ul = document.querySelector('ul');
+
+        ul.addEventListener('click', e => {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                // e.target 拿到 dom
+                
+                Router.go(e.target.getAttribute('href'));
+            }
+        })
+    </script>
+</body>
+
+</html>

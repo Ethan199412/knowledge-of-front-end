@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 这个例子很好的展示了 ES6 的 class
+       * 就是构造函数原型链继承的语法糖而已
+       * 记住，js 不是传统的面相对象语言，
+       * 它没有真正意义上的类。
+       */
+      class Animal {
+        constructor(name) {
+          this.name = name;
+        }
+        eat() {
+          console.log("eating");
+        }
+      }
+
+      class Cat extends Animal {
+        constructor(name) {
+          super(name);
+        }
+        meow() {
+          console.log("meow");
+        }
+      }
+
+      let cat = new Cat("mi");
+      console.log("cat", cat);
+      cat.eat();
+      cat.meow();
+
+      function Animal1(name) {
+        this.name = name;
+        this.eat = function () {
+          console.log("eating");
+        };
+      }
+
+      function Cat1(name) {
+        /** 理解这句话是关键，把 Cat1 的
+         * 实例交给 Animal1，让 Animal1 把
+         * 它的方法和属性都加到这个 this 上
+         */
+        Animal1.call(this, name); // 相当于 extends + super
+        this.meow = function () {
+          console.log("meow");
+        };
+      }
+      Cat1.prototype.__proto__ = Animal.prototype;
+      let cat1 = new Cat1("mi1");
+      console.log("cat1", cat1);
+      cat1.eat();
+      cat1.meow();
+    </script>
+  </body>
+</html>
