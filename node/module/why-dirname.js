@@ -12,3 +12,6 @@ const filename = dir + '/haha.jpg';
         __filename
     })
 })(undefined, undefined, undefined, filename, dir)
+
+const fs =require('fs')
+fs.readF

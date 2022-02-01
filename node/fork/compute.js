@@ -10,4 +10,5 @@ const longComputation = () => {
 process.on('message', (msg) => {
     const sum = longComputation();
     process.send(sum);
+    process.exit()
 });
