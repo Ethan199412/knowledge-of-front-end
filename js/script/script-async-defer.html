@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src='http://localhost:3001/public/sync.js'></script>
+    <!-- <script src='http://localhost:3001/public/sync.js'></script> -->
     <script src='http://localhost:3001/public/async.js' async></script>
     <script src='http://localhost:3001/public/defer.js' defer></script>
 </head>
@@ -14,16 +14,28 @@
 <body>
     <div>some words</div>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded')
+        });
+
+        window.onload = () => {
+            console.log('load')
+        }
+
         (function () {
             let sum = 0
             for (let i = 0; i < 2e9; i++) {
                 sum += i
             }
         })()
+        console.log('inner finished')
     </script>
     <div id="sync">sync: initial</div>
     <div id="async">async: initial</div>
     <div id="defer">defer: initial</div>
+    <!-- <script src='http://localhost:3001/public/sync.js'></script> -->
+
+    <div>footer</div>
 </body>
 
 </html>
