@@ -1,11 +1,7 @@
 
 (function () {
-    const num = 3e8;
-    let sum = 0;
-    for (let i = 0; i < num; i++) {
-        //console.log('[p0] i', i)
-        sum += i
+    for (let i = 0; i < 2e9; i++) {
+
     }
-    console.log('sum', sum)
-    defer.innerText = 'defer:' + sum
+    defer.innerText = 'defer: finished'
 })()
