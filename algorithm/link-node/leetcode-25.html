@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var reverseKGroup = function (head, k) {
+            let unitHead = head
+            if (k == 1) return head
+
+            const getThisHead = (head) => {
+                let p = head
+                for (let i = 0; i < k - 1; i++) {
+                    if (!p) return
+                    p = p.next
+                }
+                return p
+            }
+
+            const shouldRevert = (head) => {
+                let p = head
+                for (let i = 0; i < k; i++) {
+                    if (!p) return false
+                    p = p.next
+                }
+                return true
+            }
+
+            const revertUnit = (head) => {
+                // r:right, m:middle, l:left
+                let l = head, m = head.next, r = m.next
+                for (let i = 0; i < k - 1; i++) {
+                    m.next = l
+                    l = m
+                    m = r
+                    r = r && r.next
+                }
+
+                return m
+            }
+
+            const resultHead = getThisHead(head)
+            let thisButt
+            while (unitHead) {
+                if (shouldRevert(unitHead)) {
+                    const nextOldHead = revertUnit(unitHead)
+                    thisButt = unitHead
+                    unitHead.next = getThisHead(nextOldHead) || nextOldHead
+                    unitHead = nextOldHead
+                }
+                else {
+                    thisButt.next = unitHead
+                    break
+                }
+            }
+            return resultHead
+        };
+    </script>
+</body>
+
+</html>

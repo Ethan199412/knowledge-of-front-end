@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var reverseList = function (head) {
+            if (!head || !head.next) return head
+
+            let l = head, m = head.next, r = m.next
+
+            l.next = null
+            do {
+                r = m.next
+                m.next = l
+                l = m
+                m = r
+            } while (m)
+
+            return l
+        };
+    </script>
+</body>
+
+</html>

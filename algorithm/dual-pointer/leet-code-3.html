@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 原理，在一个大的字符串里找一个小的字符串，这是一个典型的用滑动窗口解决的
+        * 的问题。如果不重复能延长就延长，否则就缩。
+        */
+
+        var lengthOfLongestSubstring = function (s) {
+            let l = 0, r = 0;
+            let maxIndex = s.length - 1
+            let maxLength = 0
+            // console.log({ maxIndex, l, r })
+            while (l <= maxIndex && r <= maxIndex) {
+                const length = r - l
+                const substr = s.substr(l, length)
+                const newChar = s[r]
+
+                if (substr.includes(newChar)) {
+                    l += 1
+                    continue
+                }
+                else {
+                    r += 1
+                    maxLength = Math.max(maxLength, length + 1)
+                    continue
+                }
+            }
+            return maxLength
+        };
+        const res = lengthOfLongestSubstring('abccbaabc')
+        console.log('res', res)
+    </script>
+</body>
+
+</html>
