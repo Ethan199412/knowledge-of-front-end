@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var zigzagLevelOrder = function (root) {
+            if (!root) return []
+            let layer = 1
+            const res = []
+
+            let currentArr = [], nextArr = []
+
+            do {
+                if (layer == 1) currentArr = [root]
+                if (layer % 2 == 1) res.push(currentArr.map(e => e.val))
+                else res.push(currentArr.map(e => e.val).reverse())
+
+                nextArr = []
+                for (let node of currentArr) {
+                    if (node.left) nextArr.push(node.left)
+                    if (node.right) nextArr.push(node.right)
+                }
+
+                currentArr = nextArr
+                layer += 1
+            } while (nextArr.length)
+
+            return res
+        };
+    </script>
+</body>
+
+</html>
