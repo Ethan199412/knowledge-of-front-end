@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 核心思路，让两个链表一样长
+        var getIntersectionNode = function (headA, headB) {
+            const getLength = (node) => {
+                let i = 0
+                while (node) {
+                    node = node.next
+                    i += 1
+                }
+                return i
+            }
+
+            const runStep = (step, node) => {
+                for (let i = 0; i < step; i++) {
+                    node = node.next
+                }
+                return node
+            }
+
+            const aLength = getLength(headA), bLength = getLength(headB)
+            const step = Math.abs(aLength - bLength)
+            let minNode = aLength < bLength ? headA : headB
+            const maxNode = minNode == headA ? headB : headA
+            let maxStartNode = runStep(step, maxNode)
+
+            while (minNode) {
+                if (minNode == maxStartNode) return minNode
+                minNode = minNode.next
+                maxStartNode = maxStartNode.next
+            }
+            return null
+
+        };
+    </script>
+</body>
+
+</html>

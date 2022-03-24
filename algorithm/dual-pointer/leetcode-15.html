@@ -16,7 +16,7 @@
             const res = []
 
             for (let i in nums) {
-                current = nums[i]
+                const current = nums[i]
                 const other = nums.slice(Number(i) + 1)
 
                 let l = 0, r = other.length - 1
@@ -32,6 +32,7 @@
                         res.push([current, leftNum, rightNum])
                         l += 1
                         r -= 1
+                        // 去重
                         while (other[r] == other[r + 1]) {
                             r -= 1
                         }
