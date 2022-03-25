@@ -10,14 +10,14 @@
 
 <body>
     <script>
-        var maxSubArray = function (nums) {
-            let accumulatedMax = 0, max = nums[0]
-
-            for (let e of nums) {
-                accumulatedMax = accumulatedMax > 0 ? accumulatedMax + e : e
-                max = Math.max(max, accumulatedMax)
+        var maxProfit = function (prices) {
+            let cheapest = prices[0]
+            let max = 0
+            for (let i = 1; i < prices.length; i++) {
+                max = Math.max(max, prices[i] - cheapest)
+                cheapest = Math.min(cheapest, prices[i])
             }
-            return max
+            return maxlee
         };
     </script>
 </body>

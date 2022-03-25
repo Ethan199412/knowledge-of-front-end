@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 
+        * 为了保证每次操作都是 O(1)，我们需要用 map 保证拿的效率是 O(1)
+        * 为了保证折腾链表比较方便，我们需要使用双向链表这种数据结构。
+        * 通过自定义方法，保证这些通用逻辑可以反复的复用。
+        */
+        class Node {
+            constructor({ key, value }) {
+                this.key = key
+                this.value = value
+                this.left = null
+                this.right = null
+            }
+        }
+        var LRUCache = function (capacity) {
+            this.head = new Node({})
+            this.tail = new Node({})
+            this.capacity = capacity
+            this.length = 0
+
+            this.link(this.head, this.tail)
+
+            this.map = new Map()
+        };
+
+        /** 
+         * @param {number} key
+         * @return {number}
+         */
+        LRUCache.prototype.link = function (a, b) {
+            a.right = b
+            b.left = a
+        }
+
+        LRUCache.prototype.deleteTail = function () {
+            const tailLeftLeft = this.tail.left.left, tailLeft = this.tail.left
+            delete this.map[tailLeft.key]
+            this.link(tailLeftLeft, this.tail)
+        }
+
+        LRUCache.prototype.get = function (key) {
+            if (key in this.map) {
+                const current = this.map[key]
+                this.addToFirst(current)
+                return current.value
+            }
+            else {
+                return -1
+            }
+        };
+
+        LRUCache.prototype.print = function () {
+            let node = this.head
+            let s = ''
+            while (node) {
+                s += ((node.value || 'border') + '->')
+                node = node.right
+            }
+            console.log(s)
+            console.log(Object.keys(this.map))
+        }
+
+        LRUCache.prototype.addToFirst = function (current) {
+            const left = current.left, right = current.right, headRight = this.head.right
+
+            if (headRight == current) return // 已经在第一个了
+            console.log({
+                left: left.value,
+                right: right.value,
+                current: current.value
+            })
+            this.link(this.head, current)
+            this.link(current, headRight)
+
+            this.link(left, right)
+        }
+
+        LRUCache.prototype.put = function (key, value) {
+            if (key in this.map) {
+                const current = this.map[key]
+                this.addToFirst(current)
+                current.value = value
+            }
+
+            else {
+                // 没有满
+                const newNode = new Node({ key, value }), headRight = this.head.right
+                this.link(this.head, newNode)
+                this.link(newNode, headRight)
+                this.map[key] = newNode
+
+                if (this.length < this.capacity) {
+                    this.length++
+                }
+                // 干掉最后一个
+                else {
+                    this.deleteTail()
+                }
+
+            }
+        };
+    </script>
+</body>
+
+</html>
