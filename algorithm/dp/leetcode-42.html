@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+            * 这个题最难的地方是不好拆分问题，你不好把这个题拆成一个小的问题。
+            * 解决方法是按列算，然后知道这个列左边的最大高度和右边的最大高度
+            * 来计算当前列的高度。左边最大高度和右边最大高度可以用 dp 来求解
+        */
+
+        var trap = function (height) {
+            const leftHighest = [0], rightHighest = [0]
+
+            for (let i = 1; i < height.length; i++) {
+                const thisHighest = Math.max(leftHighest[i - 1], height[i - 1])
+                leftHighest.push(thisHighest)
+            }
+
+            for (let i = height.length - 2; i >= 0; i--) {
+                const thisHighest = Math.max(rightHighest[0], height[i + 1])
+                rightHighest.unshift(thisHighest)
+            }
+
+            let sum = 0
+            for (let i = 1; i < height.length - 1; i++) {
+                const currentHeight = height[i]
+                const waterLevel = Math.min(leftHighest[i], rightHighest[i])
+                let thisWater = currentHeight < waterLevel ? (waterLevel - currentHeight) : 0
+                sum += thisWater
+            }
+            return sum
+        };
+    </script>
+</body>
+
+</html>

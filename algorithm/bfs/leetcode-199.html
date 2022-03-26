@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 没什么值得讲的，一个很好想的 bfs，输出每层的最后一个。
+        var rightSideView = function (root) {
+            const res = []
+            const bfs = () => {
+                if (!root) return
+                let currentLayer = [root]
+                while (currentLayer.length) {
+                    const last = currentLayer[currentLayer.length - 1].val
+                    res.push(last)
+
+                    let nextLayer = []
+                    for (let node of currentLayer) {
+                        const { left, right } = node
+                        if (left) nextLayer.push(left)
+                        if (right) nextLayer.push(right)
+                    }
+                    currentLayer = nextLayer
+                }
+            }
+
+            bfs()
+
+            return res
+
+        };
+    </script>
+</body>
+
+</html>

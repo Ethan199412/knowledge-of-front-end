@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 为了方便运算，补一个 0
+        var addStrings = function (num1, num2) {
+            const addZero = (num1, num2) => {
+                const diff = num1.length - num2.length
+                if (diff > 0) num2 = '0'.repeat(diff) + num2
+                else num1 = '0'.repeat(-diff) + num1
+                return {
+                    num1,
+                    num2
+                }
+            }
+
+            ({ num1, num2 } = addZero(num1, num2))
+
+            let res = '', carry = 0
+            for (let i = num1.length - 1; i >= 0; i--) {
+                const d1 = Number(num1[i]), d2 = Number(num2[i])
+                let total = d1 + d2 + carry
+
+                if (total >= 10) {
+                    carry = 1
+                    total -= 10
+                }
+                else {
+                    carry = 0
+                }
+                res = total + res
+            }
+            if (carry == 1) res = 1 + res
+            return res
+        };  
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 很简单，很好想，此时想办法把程序写的漂亮些。
+        var mergeTwoLists = function (list1, list2) {
+            let head = new ListNode(), current = head
+
+            const step = (current, node) => {
+                current.next = node
+                node = node.next
+                return node
+            }
+
+            const MOVE_LIST1 = 'list1'
+            const MOVE_LIST2 = 'list2'
+
+            const decideWhoMove = (list1, list2) => {
+                if ((list1 && list2 && list1.val < list2.val) || (list1 && !list2)) return MOVE_LIST1
+                if ((list1 && list2 && list2.val <= list1.val) || (list2 && !list1)) return MOVE_LIST2
+            }
+
+            while (list1 || list2) {
+                const res = decideWhoMove(list1, list2)
+                if (res == MOVE_LIST1) list1 = step(current, list1)
+                else list2 = step(current, list2)
+
+                current = current.next
+            }
+            return head.next
+        };
+    </script>
+</body>
+
+</html>

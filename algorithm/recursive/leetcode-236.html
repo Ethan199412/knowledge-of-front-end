@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+            * 用递归的时候，在递归过程中发现的值要保留到全局变量中去，一定不要
+            * 层层传递，那样会大大增加时间复杂度。编程前仔细想清楚目标对象的特征
+            * 是什么是非常重要的。dfs 本身并不难。
+        */
+
+        
+        var lowestCommonAncestor = function (root, p, q) {
+            let result
+            
+            const dfs = (node) => {
+                if (!node) return false
+
+                const findLeft = dfs(node.left) ? 1 : 0
+                const findRight = dfs(node.right) ? 1 : 0
+                const findMid = (node == p || node == q) ? 1 : 0
+
+                if (findLeft + findRight + findMid == 2) {
+                    result = node
+                }
+                return findLeft + findRight + findMid > 0
+            }
+
+            dfs(root)
+            return result
+        };
+    </script>
+</body>
+
+</html>
