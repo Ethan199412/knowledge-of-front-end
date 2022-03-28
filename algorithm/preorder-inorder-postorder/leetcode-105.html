@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 注意这个题的检测机制，null 和 undefined 的区别
+        var buildTree = function (preorder, inorder) {
+            const getTree = (preorder, inorder) => {
+                if (!preorder.length) return null
+                const rootValue = preorder[0]
+                const root = new TreeNode(rootValue)
+                const index = inorder.findIndex(e => e == rootValue)
+                const leftInorder = inorder.slice(0, index), rightInorder = inorder.slice(index + 1)
+
+                const leftPreorder = preorder.slice(1, leftInorder.length + 1), rightPreorder = preorder.slice(leftInorder.length + 1)
+
+                root.left = getTree(leftPreorder, leftInorder)
+                root.right = getTree(rightPreorder, rightInorder)
+                return root
+            }
+
+            const root = getTree(preorder, inorder)
+            //console.log({root})
+            return root
+        };
+    </script>
+</body>
+
+</html>

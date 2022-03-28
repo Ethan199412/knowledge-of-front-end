@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var numIslands = function (grid) {
+            let num = 0, hasArrived = new Set()
+
+            const recur = (y, x) => {
+                if (grid[y][x] == 0) return
+
+                const str = y + ',' + x
+                if (hasArrived.has(str)) return
+                
+                hasArrived.add(str)
+                const yMax = grid.length, xMax = grid[0].length
+                y = Number(y), x = Number(x)
+                if (y + 1 < yMax) recur(y + 1, x)
+                if (y - 1 >= 0) recur(y - 1, x)
+                if (x + 1 < xMax) recur(y, x + 1)
+                if (x - 1 >= 0) recur(y, x - 1)
+            }
+
+            for (let y in grid) {
+                for (let x in grid[0]) {
+                    const str = y + ',' + x
+                    if (!hasArrived.has(str) && grid[y][x] == 1) {
+                        recur(y, x)
+                        num += 1
+                    }
+                }
+            }
+            return num
+        };
+    </script>
+</body>
+
+</html>

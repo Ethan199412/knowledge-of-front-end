@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 题目本身不难，主要就是一个融合排序，但难的地方是需要
+        * 你意识到从后往前排，而不是从前往后排
+        */
+        var merge = function (nums1, m, nums2, n) {
+            let i = nums1.length - 1
+            m -= 1
+            n -= 1
+            const neg = -Infinity
+            while (m >= 0 || n >= 0) {
+
+                const num1 = nums1[m] == undefined ? neg : nums1[m]
+                const num2 = nums2[n] == undefined ? neg : nums2[n]
+
+                if (num1 > num2) {
+                    nums1[i] = num1
+                    m--
+                }
+
+                else {
+                    nums1[i] = num2
+                    n--
+                }
+                i--
+            }
+        };  
+    </script>
+</body>
+
+</html>
