@@ -19,10 +19,6 @@
         class Routers {
             constructor() {
                 this.routes = {};
-                // window.addEventListener('popstate', e => {
-                //     const path = e.state && e.state.path;
-                //     this.routes[path] && this.routes[path]();
-                // })
             }
 
             init(path) {
@@ -45,7 +41,7 @@
         window.Router = new Routers();
 
         function changeBgColor(color) {
-            console.log('[p0]', { color })
+            console.log('[p0]', { color }, window.Router.routes)
             content.style.background = color;
         }
 
