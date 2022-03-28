@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 有一种比较简单，但是费空间度的，但是快，还有一种不好思考，但是不费空间复杂度的。
+        var detectCycle = function (head) {
+            let node = head
+            const set = new Set()
+            while (node) {
+                if (set.has(node)) return node
+                set.add(node)
+                node = node.next
+            }
+            return null
+        };
+    </script>
+</body>
+
+</html>
