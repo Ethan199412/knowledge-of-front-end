@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 这道题难在写法上，思路并不难。
+        var mergeKLists = function (lists) {
+            if (!lists.length) return null
+
+            let res = new ListNode(-Infinity)
+            res.next = lists[0]
+
+            for (let i = 1; i < lists.length; i++) {
+                const list = lists[i]
+                let node = list
+                let tempRes = res
+                while (node) {
+                    if (tempRes.val <= node.val && (!tempRes.next || node.val < tempRes.next.val)) {
+                        let pre = tempRes, next = tempRes.next, nodeNext = node.next
+                        pre.next = node
+                        node.next = next
+                        tempRes = node
+                        node = nodeNext
+                        continue
+                    }
+                    tempRes = tempRes.next
+                }
+            }
+            return res.next
+        };
+    </script>
+</body>
+
+</html>
