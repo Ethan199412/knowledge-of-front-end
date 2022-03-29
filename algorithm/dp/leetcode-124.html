@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 动态规划 + 后续遍历（左右根）
+        const print = (root) => {
+            if (!root) return
+            console.log(root.dpVal)
+            if (root.left) print(root.left)
+            if (root.right) print(root.right)
+        }
+
+        var maxPathSum = function (root) {
+            let max = root.val
+            const postOrder = (root) => {
+                if (!root) return
+                if (root.left) postOrder(root.left)
+                if (root.right) postOrder(root.right)
+
+                let dpRight, dpLeft
+                dpLeft = root.left ? root.left.dpVal : 0
+                dpRight = root.right ? root.right.dpVal : 0
+
+                root.dpVal = Math.max(dpLeft, dpRight, 0) + root.val
+                max = Math.max(max, root.val + (dpLeft > 0 ? dpLeft : 0) + (dpRight > 0 ? dpRight : 0))
+            }
+            postOrder(root)
+            return max
+        };
+    </script>
+</body>
+
+</html>
