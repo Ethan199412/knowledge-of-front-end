@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 我用的后续，记录每个节点的最大值和最小值。
+        var isValidBST = function (root) {
+            let result = true;
+            const postorder = (root) => {
+                if (!root) return
+
+                if (root.left) postorder(root.left)
+                if (root.right) postorder(root.right)
+
+                if (root.left && root.val <= root.left.maxVal) result = false
+                if (root.right && root.val >= root.right.minVal) result = false
+
+                const maxArr = [root.val, root.left && root.left.maxVal, root.right && root.right.maxVal].filter(e => e)
+                const minArr = [root.val, root.left && root.left.minVal, root.right && root.right.minVal].filter(e => e)
+                root.minVal = Math.min(...minArr)
+                root.maxVal = Math.max(...maxArr)
+            }
+            postorder(root)
+            // print(root)
+            return result
+        };
+    </script>
+</body>
+
+</html>

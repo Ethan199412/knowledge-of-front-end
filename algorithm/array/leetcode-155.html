@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 每个元素里面都存放最小值是一个很巧妙的设计
+        var MinStack = function () {
+            this.stack = []
+        };
+
+        /** 
+         * @param {number} val
+         * @return {void}
+         */
+        MinStack.prototype.push = function (val) {
+            if (!this.stack.length)
+                this.stack.push({ val, min: val })
+            else {
+                let min = this.getMin()
+                min = Math.min(val, min)
+                this.stack.push({ val, min })
+            }
+        };
+
+        /**
+         * @return {void}
+         */
+        MinStack.prototype.pop = function () {
+            return this.stack.pop().val
+        };
+
+        /**
+         * @return {number}
+         */
+        MinStack.prototype.top = function () {
+            return this.stack[this.stack.length - 1].val
+        };
+
+        /**
+         * @return {number}
+         */
+        MinStack.prototype.getMin = function () {
+            return this.stack[this.stack.length - 1].min
+        };
+
+    </script>
+</body>
+
+</html>

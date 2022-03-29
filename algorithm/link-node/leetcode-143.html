@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 两步走，第一步，找中点，第二步，翻转后半段。
+        var reorderList = function (head) {
+            const findMid = (head) => {
+                let l = head, f = head, ll
+                while (f && f.next) {
+                    ll = l
+                    l = l.next
+                    f = f.next.next
+                }
+                if (!f) {
+                    ll.next = null
+                    return l
+                }
+                const res = l.next
+                l.next = null
+                return res
+            }
+
+            const reverse = (node) => {
+                if (!node) return
+                const head = new ListNode()
+                head.next = node
+
+                let l = head, m = l.next, r = m.next
+                let origin = m
+
+                while (m) {
+                    m.next = l
+                    l = m
+                    m = r
+                    r = r && r.next
+                }
+
+                origin.next = null
+                return l
+            }
+
+            const mid = findMid(head)
+
+            const head2 = reverse(mid)
+
+            let node1 = head, node2 = head2
+            while (node1 && node2) {
+                let pre = node1, mid = node2, next = node1.next, node2Next = node2.next
+                pre.next = mid
+                mid.next = next
+                node1 = next
+                node2 = node2Next
+            }
+        };
+    </script>
+</body>
+
+</html>
