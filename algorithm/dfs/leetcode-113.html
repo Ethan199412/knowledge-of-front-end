@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 没啥可说的，一个简单的 dfs，稍微用了一下动态规划的思想，注意输出结果时深拷贝。
+        var pathSum = function (root, targetSum) {
+            const res = []
+            const dfs = (root, arr, fatherVal = 0) => {
+                //console.log({arr, val:root.val})
+                if (!root) return
+                arr.push(root.val)
+
+                root.dpVal = root.val + fatherVal
+                if (root.dpVal == targetSum && !root.left && !root.right) {
+                    res.push([...arr])
+                }
+
+                if (root.left) dfs(root.left, arr, root.dpVal)
+                if (root.right) dfs(root.right, arr, root.dpVal)
+
+                arr.pop()
+            }
+            dfs(root, [])
+            return res
+        };
+    </script>
+</body>
+
+</html>

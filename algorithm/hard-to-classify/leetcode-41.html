@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 这道题难的不是编程，而是把这个思路想明白，首先，这个题的结果一定不可能大于 n+1，也不可能小于 1。因此，可以把那些
+         * 大于 n+1 且小于 1 的数都变成 0。这个算法的精髓在于 nums[nums[i] % n] += n 这句话，一旦 nums 里面的值大于 n
+         * 就说明，那个 index 出现了，如果小于 n，就说明从来没出现过，也就是，从来没有添加 n。
+         * */
+        var firstMissingPositive = function (nums) {
+            nums.push(0)
+            const n = nums.length
+            for (let i = 0; i < n; i++) {
+                if (nums[i] < 0 || nums[i] >= n) {
+                    nums[i] = 0
+                }
+            }
+            for (let i = 0; i < n; i++) {
+                nums[nums[i] % n] += n
+            }
+
+            for (let i = 1; i < n; i++) {
+                if (nums[i] < n) {
+                    return i
+                }
+            }
+            return n
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 思路不算复杂，用 bfs 得到一个层级的 array，对于 1 至倒数第二层，所有的下层节点是上层的 2 倍，
+         * 对于最后一层，左侧必须连续，连续后一定不能再有节点。
+         * */
+        const judgeTop = (arr) => {
+            const n = arr.length
+            if (n <= 2) return true
+            for (let i = 0; i < n - 2; i++) {
+                if (arr[i].length * 2 == arr[i + 1].length) {
+                    continue
+                }
+                return false
+            }
+            return true
+        }
+
+        const judgeBottom = (arr) => {
+            const n = arr.length
+            if (n < 2) return true
+
+            let lastSecondLayer = arr[n - 2]
+            let lastZeroOrOnlyLeft = false
+            for (let node of lastSecondLayer) {
+                if (node.left && node.right && !lastZeroOrOnlyLeft) {
+                    continue
+                }
+                else if (node.left && !node.right && !lastZeroOrOnlyLeft) {
+                    lastZeroOrOnlyLeft = true
+                    continue
+                }
+                else if (!node.left && !node.right && !lastZeroOrOnlyLeft) {
+                    lastZeroOrOnlyLeft = true
+                    continue
+                }
+                else if (lastZeroOrOnlyLeft && !node.left && !node.right) {
+                    continue
+                }
+                return false
+            }
+            return true
+        }
+
+        var isCompleteTree = function (root) {
+            const res = []
+            let currentLayer = [root]
+            const bfs = (root) => {
+                while (currentLayer.length) {
+                    res.push(currentLayer)
+                    let nextLayer = []
+                    for (let node of currentLayer) {
+                        if (node.left) nextLayer.push(node.left)
+                        if (node.right) nextLayer.push(node.right)
+                    }
+                    currentLayer = nextLayer
+                }
+            }
+            bfs(root)
+
+            if (judgeTop(res) && judgeBottom(res)) return true
+            return false
+        };
+    </script>
+</body>
+
+</html>
