@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个简单的 dfs，没什么可说的。
+        var hasPathSum = function (root, targetSum) {
+            let result = false
+            const dfs = (root, sum) => {
+                if (!root || result) return
+                root.sum = sum + root.val
+
+                if (!root.left && !root.right && root.sum == targetSum) {
+                    result = true
+                    return
+                }
+                dfs(root.left, root.sum)
+                dfs(root.right, root.sum)
+            }
+
+            dfs(root, 0)
+            return result
+        };
+    </script>
+</body>
+
+</html>

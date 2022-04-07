@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个最简单的动态规划，没什么可说的。
+        var climbStairs = function (n) {
+            const dp = new Array(n + 1)
+            dp[0] = 1, dp[1] = 1
+            for (let i = 2; i < n + 1; i++) {
+                dp[i] = dp[i - 1] + dp[i - 2]
+            }
+            return dp[n]
+        };
+    </script>
+</body>
+
+</html>
