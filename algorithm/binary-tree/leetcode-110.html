@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 典型的 postorder 应用
+        var isBalanced = function (root) {
+            let result = true
+            const postOrder = (node) => {
+                if (!result || !node) return
+                if (!node.left && !node.right) {
+                    node.layer = 1
+                    return
+                }
+                if (node.left) postOrder(node.left)
+                if (node.right) postOrder(node.right)
+
+                let leftLayer = node.left ? node.left.layer : 0, rightLayer = node.right ? node.right.layer : 0
+
+                if (Math.abs(leftLayer - rightLayer) >= 2) {
+                    result = false
+                    return
+                }
+                node.layer = Math.max(leftLayer, rightLayer) + 1
+            }
+
+            postOrder(root)
+            return result
+        };
+    </script>
+</body>
+
+</html>

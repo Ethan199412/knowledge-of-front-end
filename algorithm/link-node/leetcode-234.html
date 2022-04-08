@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 思路：找中点，翻转，比较，注意分类讨论，是单回文还是双回文。
+        const findMid = (head) => {
+            let slow = fast = head
+            let prev
+            while (fast.next && fast.next.next) {
+                prev = slow
+                slow = slow.next
+                fast = fast.next.next
+            }
+            return {
+                prev,
+                slow,
+                fast
+            }
+        }
+
+        const reverse = (node) => {
+            if (!node.next) return node // 长度为 1
+            const head = new ListNode()
+            head.next = node
+            let l = head, m = l.next, r = m.next
+
+            while (m) {
+                m.next = l
+                l = m
+                m = r
+                r = r && r.next
+            }
+            node.next = null
+            return l
+        }
+
+        const compare = (n1, n2) => {
+            while (n1 && n2) {
+                if (n1.val != n2.val) return false
+                n1 = n1.next
+                n2 = n2.next
+            }
+            return true
+        }
+
+        var isPalindrome = function (head) {
+            if (!head.next) return true // 只有一个
+            // 思路：找中点，翻转，比较
+            const { prev, slow, fast } = findMid(head)
+
+            let left = head, right
+            // 说明是单
+            if (!fast.next) {
+                prev.next = null
+                right = slow.next
+            }
+            else {
+                right = slow.next
+                slow.next = null
+            }
+
+            const node = reverse(left)
+            return compare(node, right)
+        };
+    </script>
+</body>
+
+</html>
