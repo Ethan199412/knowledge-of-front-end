@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 这个题不是很难，准备一个进位，做加法即可，
+        * 稍微有难度的地方是循环有可能或多加了节点的情况
+        * 不容易把代码写的很干净。
+        */
+        const reverse = (node) => {
+            if (!node.next) return node
+
+            const head = new ListNode()
+
+            head.next = node
+
+            let l = head, m = l.next, r = m.next
+
+            while (m) {
+                m.next = l
+                l = m
+                m = r
+                r = r && r.next
+            }
+            node.next = null
+            return l
+        }
+
+        var addTwoNumbers = function (l1, l2) {
+            let node = new ListNode(), oldNode
+            const resultHead = node
+            let carry = 0
+
+            while (l1 || l2 || carry) {
+                let val = (l1 ? l1.val : 0) + (l2 ? l2.val : 0) + carry
+
+                if (val >= 10) {
+                    val = val - 10
+                    carry = 1
+                }
+                else {
+                    carry = 0
+                }
+
+                if (l1) l1 = l1.next
+                if (l2) l2 = l2.next
+
+                node.val = val
+                let newNode = new ListNode()
+                node.next = newNode
+                oldNode = node
+                node = node.next
+            }
+
+            oldNode.next = null
+            return resultHead
+        };
+    </script>
+</body>
+
+</html>

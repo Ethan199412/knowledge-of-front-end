@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 其实就是一个标准的后续遍历。
+        var diameterOfBinaryTree = function (root) {
+            let max = 0
+            const postOrder = (root) => {
+                if (!root) return
+
+                if (root.left) postOrder(root.left)
+                if (root.right) postOrder(root.right)
+
+                if (!root.left) root.leftMax = 0
+                if (!root.right) root.rightMax = 0
+
+                root.leftMax = root.left ? Math.max(root.left.leftMax, root.left.rightMax) + 1 : 0
+                root.rightMax = root.right ? Math.max(rootlee.right.leftMax, root.right.rightMax) + 1 : 0
+
+                max = Math.max(max, root.leftMax + root.rightMax)
+            }
+            postOrder(root)
+            return max
+        };
+    </script>
+</body>
+
+</html>

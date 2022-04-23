@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+        * 这个题难的事想好怎么找，第一步，从右往左，找到第一个升序，替换比它大的最小的那个数，
+        * 然后再翻转剩余的那些。比如：2,3,1,3,3， 1,3 是第一个升序，替换 1 和 3（最右侧）
+        * 2,3,3,3,1，翻转后两个，2,3,3,1,3。这个题对你来说比较难，因为不属于任何一种题型
+        */
+        // 这里需要从后面往前找，否则会有问题，比如 2,3,1,3,3
+        const findMinIndex = (array, l, r, target) => {
+
+            let index, min
+            //let index, min
+            for (let i = r; i >= l; i--) {
+                if (array[i] > target) {
+                    if (min && min > array[i]) {
+                        min = array[i]
+                        index = i
+                    }
+                    else if (!min) {
+                        min = array[i]
+                        index = i
+                    }
+                }
+            }
+            return index
+        }
+
+        const replace = (array, l, r) => {
+            let temp = array[l]
+            array[l] = array[r]
+            array[r] = temp
+        }
+
+        const reverse = (array, l, r) => {
+            const midLength = parseInt((r - l + 1) / 2)
+            for (let i = l; i < l + midLength; i++) {
+                let j = l + r - i
+                replace(array, i, j)
+            }
+        }
+
+        var nextPermutation = function (nums) {
+            if (nums.length == 1) return nums
+
+            let index = nums.length - 1
+            while (nums[index - 1] >= nums[index]) {
+                index--
+                if (index == 0) {
+                    reverse(nums, 0, nums.length - 1)
+                    return
+                }
+            }
+
+            const minIndex = findMinIndex(nums, index, nums.length - 1, nums[index - 1])
+            replace(nums, index - 1, minIndex)
+
+            reverse(nums, index, nums.length - 1)
+        }; 
+    </script>
+</body>
+
+</html>
