@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 本来用的是递归，但事实证明没必要，递归性能比较差
+        * 用迭代即可，但是，一种方法是从左上角找，性能很差，查询
+        * 路径会有大量的重复，另一种是从右上角找，性能优异。
+        */
+        var searchMatrix = function (matrix, target) {
+            const maxX = matrix[0].length - 1
+            const maxY = matrix.length - 1
+            let result = false, x = maxX, y = 0
+
+            while (x >= 0 && y <= maxY) {
+                const current = matrix[y][x]
+                if (current == target) return true
+
+                if (current > target) {
+                    x--
+                    if (x < 0) return false
+                }
+                else if (current < target) {
+                    y++
+                    if (y > maxY) return false
+                }
+
+            }
+            return false
+        };
+    </script>
+</body>
+
+</html>

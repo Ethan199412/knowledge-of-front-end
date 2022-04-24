@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个使用 stack 解决的问题，比左边界小则置换，比右边界大的则置换
+        // 比右边界小则计算收入。
+        let stack = [], sum = 0
+        for (let price of prices) {
+            const { length } = stack
+            let last
+            //console.log(stack)
+            switch (length) {
+                case 0:
+                    stack.push(price)
+                    break
+                case 1:
+                    last = stack[0]
+                    if (price < last) {
+                        stack[0] = price
+                    }
+                    else if (price > last) {
+                        stack.push(price)
+                    }
+                    break
+                case 2:
+                    last = stack[1]
+                    if (price > last) {
+                        stack[1] = price
+                    }
+                    else if (price < last) {
+                        sum += (stack[1] - stack[0])
+                        stack = [price]
+                    }
+                    break
+            }
+        }
+
+        if (stack.length == 2) {
+            sum += (stack[1] - stack[0])
+        }
+        return sum
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个标准的 dfs，顺带着把一个字符串传来传去，方便每一层函数使用
+        var sumNumbers = function (root) {
+            let str = '', sum = 0
+            const dfs = (root, str) => {
+                if (!root) return
+                str += root.val
+
+                if (!root.left && !root.right) {
+                    sum += Number(str)
+                    return
+                }
+
+                if (root.left) dfs(root.left, str)
+                if (root.right) dfs(root.right, str)
+            }
+            dfs(root, '')
+            return sum
+        };
+    </script>
+</body>
+
+</html>
