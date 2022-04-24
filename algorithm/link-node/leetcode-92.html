@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 这个题不难，记录好左边和右边的节点，以及左边的左边，和右边的右边即可。
+        const reverse = (node) => {
+            // 只有一个 node
+            if (!node.next) return node
+
+            const head = new ListNode()
+            head.next = node
+
+            let l = head, m = l.next, r = m.next
+
+            //console.log({l,m,r})
+            while (m) {
+                m.next = l
+                l = m
+                m = r
+                r = r && r.next
+            }
+            node.next = null
+            return l
+        }
+
+        var reverseBetween = function (head, left, right) {
+            if (left == right) return head
+            
+            // 加一个头
+            const newHead = new ListNode()
+            newHead.next = head
+
+            let cur = 0, leftSLeft, rightSRight, leftNode, rightNode
+
+            let node = newHead
+            while (node) {
+                if (left - cur == 1) {
+                    leftSLeft = node
+                }
+                else if (left == cur) {
+                    leftNode = node
+                }
+                else if (cur - right == 1) {
+                    rightSRight = node
+                }
+                else if (cur == right) {
+                    rightNode = node
+                }
+
+                node = node.next
+                cur++
+            }
+
+            if (rightSRight == undefined) rightSRight = null
+
+            // 把屁股后面的节点干掉，以免翻转多余的节点
+            rightNode.next = null
+            const afterReverseNode = reverse(leftNode)
+
+            // 把三段接在一起
+            leftSLeft.next = afterReverseNode
+            leftNode.next = rightSRight
+
+            return newHead.next
+        }; 
+    </script>
+</body>
+
+</html>
