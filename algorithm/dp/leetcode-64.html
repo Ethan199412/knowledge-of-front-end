@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个最简单的动态规划
+        const genMatrix = (y, x) => {
+            const arr = new Array(y)
+            for (let i = 0; i < y; i++) {
+                arr[i] = new Array(x).fill(0)
+            }
+            return arr
+        }
+
+        var minPathSum = function (grid) {
+            const y = grid.length, x = grid[0].length
+            const dp = genMatrix(y, x)
+            for (let i = 0; i < y; i++) {
+                for (let j = 0; j < x; j++) {
+                    if (i == 0 && j == 0) {
+                        dp[i][j] = grid[i][j]
+                    }
+                    else if (i == 0) {
+                        dp[i][j] = dp[i][j - 1] + grid[i][j]
+                    }
+                    else if (j == 0) {
+                        dp[i][j] = dp[i - 1][j] + grid[i][j]
+                    }
+                    else {
+                        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
+                    }
+                }
+            }
+            return dp[y - 1][x - 1]
+        };
+    </script>
+</body>
+
+</html>

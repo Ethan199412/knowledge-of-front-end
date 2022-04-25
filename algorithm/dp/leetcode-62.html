@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个典型的 dp
+        const genMatrix = (y, x) => {
+            const arr = new Array(y)
+            for (let i = 0; i < y; i++) {
+                arr[i] = new Array(x).fill(0)
+            }
+            return arr
+        }
+
+        var uniquePaths = function (m, n) {
+            const dp = genMatrix(m, n)
+
+            for (let i = 0; i < m; i++) {
+                for (let j = 0; j < n; j++) {
+                    if (i == 0 || j == 0) {
+                        dp[i][j] = 1
+                    }
+                    else {
+                        dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+                    }
+                }
+            }
+            return (dp[m - 1][n - 1])
+        };
+    </script>
+</body>
+
+</html>
