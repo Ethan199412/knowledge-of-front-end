@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个标准的 dfs，好想。
+        var invertTree = function (root) {
+            if (!root) return root
+            let newRoot = new TreeNode()
+
+            const dfs = (root, newRoot) => {
+                if (!root) return
+                newRoot.val = root.val
+
+                if (root.left) {
+                    newRoot.right = new TreeNode()
+                    dfs(root.left, newRoot.right)
+                }
+
+                if (root.right) {
+                    newRoot.left = new TreeNode()
+                    dfs(root.right, newRoot.left)
+                }
+            }
+            dfs(root, newRoot)
+            return newRoot
+        };
+    </script>
+</body>
+
+</html>

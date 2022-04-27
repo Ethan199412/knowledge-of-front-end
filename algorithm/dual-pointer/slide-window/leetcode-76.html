@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个标准的滑动窗口，这个是优化了判断是否合法的条件
+        const genMap = (s) => {
+            const map = {}
+            for (let char of s) {
+                if (map[char]) {
+                    map[char] += 1
+                    continue
+                }
+                map[char] = 1
+            }
+            return map
+        }
+
+        var minWindow = function (s, t) {
+            const tMap = genMap(t)
+
+            let l = 0, r = 0, minStr = '', currentMatch = 0
+            const { length } = s
+            const sMap = {}
+            const allMatch = Object.keys(tMap).length
+
+            while (l < length && r <= length) {
+                if (currentMatch == allMatch) {
+                    let subStr = s.substr(l, r - l)
+                    if (minStr && minStr.length > subStr.length) {
+                        minStr = subStr
+                    }
+                    else if (!minStr) {
+                        minStr = subStr
+                    }
+
+                    sMap[s[l]] -= 1
+                    if (sMap[s[l]] < tMap[s[l]]) currentMatch--
+
+                    l++
+                }
+                else {
+                    sMap[s[r]] = (sMap[s[r]] || 0) + 1
+                    if (sMap[s[r]] == tMap[s[r]]) currentMatch++
+                    r++
+                }
+            }
+            return minStr
+        };
+    </script>
+</body>
+
+</html>

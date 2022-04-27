@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 很简单的 dfs，没啥可说的。
+        var maxDepth = function (root) {
+            let max = 0
+            const dfs = (root, layer) => {
+                if (!root) return
+                layer += 1
+                max = Math.max(max, layer)
+                if (root.left) dfs(root.left, layer)
+                if (root.right) dfs(root.right, layer)
+            }
+            dfs(root, 0)
+            return max
+        };
+    </script>
+</body>
+
+</html>

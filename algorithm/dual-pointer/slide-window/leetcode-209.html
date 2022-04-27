@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个标准的滑动窗口
+        const sum = (arr, l, r) => {
+            let total = 0
+            for (let i = l; i <= r; i++) {
+                total += arr[i]
+            }
+            return total
+        }
+
+        var minSubArrayLen = function (target, nums) {
+            let r = l = 0;
+            const { length } = nums
+            let min
+            while (r <= length - 1 && l <= length - 1) {
+                if (sum(nums, l, r) < target) {
+                    r += 1
+                }
+                else {
+                    const curWin = r - l + 1
+                    if (min) min = Math.min(min, curWin)
+                    else min = curWin
+                    l += 1
+                }
+            }
+            return min || 0
+        };
+
+
+        // 优化后的方案
+        /*
+        var minSubArrayLen = function (target, nums) {
+            let r = l = 0;
+            const { length } = nums
+            let min, sum = nums[0]
+
+            while (r <= length - 1 && l <= length - 1) {
+                if (sum < target) {
+                    r += 1
+                    sum += nums[r]
+                }
+                else {
+                    const curWin = r - l + 1
+                    if (min) min = Math.min(min, curWin)
+                    else min = curWin
+                    sum -= nums[l]
+                    l += 1
+                }
+            }
+            return min || 0
+        };
+        */
+    </script>
+</body>
+
+</html>
