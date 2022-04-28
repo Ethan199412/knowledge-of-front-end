@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 我总以为这个题要用栈，但实际上用动态规划
+        var longestValidParentheses = function (s) {
+            const dp = [0]
+            let maxLength = 0
+
+            for (let i = 1; i < s.length; i++) {
+                if (s[i] == '(') dp[i] = 0
+                else if (s[i] == ')') {
+                    if (s[i - 1] == '(') {
+                        dp[i] = 2
+                        if (i - 2 >= 0) dp[i] += dp[i - 2]
+                    }
+                    else if (s[i - 1] == ')') {
+                        dp[i] = 0
+                        if (s[i - 1 - dp[i - 1]] == '(') {
+                            dp[i] += (dp[i - 1] + 2)
+                            if (i - 2 - dp[i - 1] >= 0) {
+                                dp[i] += dp[i - 2 - dp[i - 1]]
+                            }
+                        }
+                    }
+                }
+                maxLength = Math.max(dp[i], maxLength)
+            }
+            return maxLength
+        };
+    </script>
+</body>
+
+</html>
