@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个比较好想的递归，主要难在写法
+        var restoreIpAddresses = function (s) {
+            const { length } = s
+            const res = []
+
+            const recur = (s, temp) => {
+                for (let i = 1; i <= 3; i++) {
+                    let subStr = s.substr(0, i)
+                    //if(Number(subStr) > 255 || /^0\d+/.test(subStr)) return 用正则有可能慢
+                    if (Number(subStr) > 255 || (subStr[0] == '0' && subStr.length > 1)) return
+                    if (subStr.length == i) {
+                        let nextTemp = [...temp, subStr], nextStr = s.substr(i)
+                        if (nextTemp.length == 4) {
+                            // 可以结束了
+                            if (nextStr.length == 0) res.push(nextTemp.join('.'))
+                            else continue
+                        }
+                        else if (nextTemp.length > 4) return
+                        else recur(nextStr, nextTemp)
+                    }
+                    else return
+                }
+            }
+
+            // 提升效率
+            if (s.length > 12 || s.length < 4) return []
+            recur(s, [])
+            return res
+        };
+    </script>
+</body>
+
+</html>

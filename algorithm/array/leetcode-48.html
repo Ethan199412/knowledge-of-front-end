@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 思路，每次动四个，向洋葱一样一层一层的来
+        var rotate = function (matrix) {
+            const l = matrix.length
+            const rotateOneLayer = (layer) => {
+                const currentLayerLength = l - 2 * layer
+                for (let i = 0; i < currentLayerLength - 1; i++) {
+                    // 思路，每次动四个
+                    const topLeft = matrix[0 + layer][layer + i]
+                    const topRight = matrix[i + layer][l - 1 - layer]
+                    const bottomRight = matrix[l - 1 - layer][l - i - 1 - layer]
+                    const bottomLeft = matrix[l - i - 1 - layer][0 + layer]
+
+                    matrix[0 + layer][layer + i] = bottomLeft
+                    matrix[i + layer][l - 1 - layer] = topLeft
+                    matrix[l - 1 - layer][l - i - 1 - layer] = topRight
+                    matrix[l - i - 1 - layer][0 + layer] = bottomRight
+                }
+            }
+
+            const maxLayer = parseInt(l / 2)
+            for (let i = 0; i < maxLayer; i++) {
+                rotateOneLayer(i)
+            }
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var removeNthFromEnd = function (head, n) {
+            // 思路，前面有一个指针先走 n 步，前面的到头了，后面那个指针指的就是
+            // 倒数第 n 个。同时，也要记录好，第 n-1 个。但 n-1 有可能为空，因
+            // 此，初始化的时候要添加表头。
+            const newHead = new ListNode()
+            newHead.next = head
+
+            let node = newHead
+            for (let i = 0; i < n; i++) {
+                node = node.next
+            }
+
+            let node2 = newHead, pre
+            while (node) {
+                node = node.next
+                pre = node2
+                node2 = node2.next
+            }
+            pre.next = node2.next
+            return newHead.next
+        };
+    </script>
+</body>
+
+</html>
