@@ -1,6 +1,14 @@
 import React, { PureComponent } from 'react';
 import { store } from './store.js';
 
+const action = (params) => {
+    return (dispatch) => {
+        setTimeout(() => {
+            dispatch(params)
+        }, 300)
+    }
+}
+
 class SonA extends PureComponent {
     constructor(props) {
         super(props)
@@ -13,7 +21,10 @@ class SonA extends PureComponent {
     }
 
     handleClick = () => {
-        store.dispatch({ type: 'changeValue', data: 10 })
+        // setTimeout(()=>{
+        //     store.dispatch({ type: 'changeValue', data: 10 })
+        // },200)
+        store.dispatch(action({ type: 'changeValue', data: 20 }))
     }
 
     render() {

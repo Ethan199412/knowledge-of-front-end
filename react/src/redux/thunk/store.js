@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk'
 
 const defaultState = {
     name: 'Ethan',
@@ -18,9 +19,9 @@ function reducer(state = defaultState, action) {
             break
     }
 
-    return {...state,...newState};
+    return { ...state, ...newState };
 }
 
 
 
-export const store = createStore(reducer);
+export const store = createStore(reducer, applyMiddleware(thunk));
