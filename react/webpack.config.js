@@ -49,6 +49,9 @@ module.exports = {
       },{
         from:'/hoc',
         to:'/'
+      },{
+        from:'/redux-thunk',
+        to:'/'
       }]
     }
   },
