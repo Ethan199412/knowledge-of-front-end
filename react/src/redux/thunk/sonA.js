@@ -5,14 +5,11 @@ class SonA extends PureComponent {
     constructor(props) {
         super(props)
         this.state = store.getState();
+        store.subscribe(this.storeChange)
     }
 
-    componentDidMount() {
-        //subscribe当store中数据发生变化就会更新数据
-        store.subscribe(() => {
-            console.log('[p0.3] subscribe A')
-            this.setState({ name: store.getState().name })
-        })
+    storeChange = () => {
+        this.setState(store.getState())
     }
 
     handleClick = () => {

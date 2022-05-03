@@ -8,16 +8,17 @@ const defaultState = {
 function reducer(state = defaultState, action) {
     console.log('[p0.2] action', action)
     const { data, type } = action
+    const newState = {}
     switch (type) {
         case 'changeName':
-            state.name += data
+            newState.name = state.name + data
             break
         case 'changeValue':
-            state.value += data
+            newState.value = state.value + data
             break
     }
 
-    return JSON.parse(JSON.stringify(state));
+    return {...state,...newState};
 }
 
 

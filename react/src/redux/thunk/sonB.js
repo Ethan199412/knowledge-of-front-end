@@ -6,13 +6,11 @@ class SonB extends PureComponent {
         super(props)
         this.state = store.getState();
         //subscribe当store中数据发生变化就会更新数据
+        store.subscribe(this.storeChange)
     }
 
-    componentDidMount() {
-        store.subscribe(() => {
-            console.log('[p0.3] subscribe B')
-            this.setState({ value: store.getState().value })
-        })
+    storeChange = () => {
+        this.setState(store.getState())
     }
 
     handleClick = () => {
