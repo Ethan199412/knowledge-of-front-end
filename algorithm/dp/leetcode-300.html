@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 动态规划，难点在于如何拆分
+        var lengthOfLIS = function (nums) {
+            dp = [1]
+
+            for (let i = 1; i < nums.length; i++) {
+                let max = 1
+                for (let j = 0; j < i; j++) {
+                    if (nums[i] > nums[j]) max = Math.max(dp[j] + 1, max)
+                }
+                dp[i] = max
+            }
+
+            return Math.max(...dp)
+        };
+    </script>
+</body>
+
+</html>
