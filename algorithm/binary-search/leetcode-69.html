@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** 两点需要注意的，一、二分查找可以求根方，二、最后的 +1 -1 很容易出错
+         * 处理的时候要在 +1 -1 的时候就直接返回，这样不容易有问题。
+         * */
+        var mySqrt = function (x) {
+            let right = x, left = 1, mid
+
+            do {
+                mid = parseInt((left + right) / 2)
+
+                if (mid * mid > x) {
+                    right = mid - 1
+                    if (right * right <= x) return right
+                }
+                else {
+                    left = mid + 1
+                    if (left * left > x) return mid
+                }
+            } while (right >= left)
+            return mid
+        };
+    </script>
+</body>
+
+</html>

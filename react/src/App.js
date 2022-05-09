@@ -9,6 +9,8 @@ import RefDemo from './ref'
 import ContextDemo from './context'
 import HocDemo from './hoc'
 import MobxDemo from './mobx'
+import ReduxDemo from "./redux/thunk";
+import PureComponentDemo from "./pureComponent";
 
 const { SubMenu } = Menu;
 
@@ -58,6 +60,18 @@ class App extends Component {
                 Mobx
               </Link>
             </Menu.Item>
+
+            <Menu.Item key="6">
+              <Link to='/redux-thunk'>
+                Redux-thunk
+              </Link>
+            </Menu.Item>
+
+            <Menu.Item key="7">
+              <Link to='/pure-component'>
+                Pure-Component
+              </Link>
+            </Menu.Item>
           </Menu>
           <div className='container'>
             <Switch>
@@ -65,6 +79,8 @@ class App extends Component {
               <Route path='/context' component={ContextDemo} />
               <Route path='/hoc' component={HocDemo} />
               <Route path='/mobx' component={MobxDemo} />
+              <Route path='/redux-thunk' component={ReduxDemo} />
+              <Route path='/pure-component' component={PureComponentDemo} />
             </Switch>
           </div>
         </BrowserRouter>
