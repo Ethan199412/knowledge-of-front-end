@@ -55,8 +55,8 @@ module.exports = {
       }]
     }
   },
-  devtool:'inline-source-map',
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ]
+  devtool:'eval-source-map',
+  // plugins: [
+  //   new webpack.HotModuleReplacementPlugin(),
+  // ]
 };

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 链表的找中点，递归，还有融合，还是挺考察算法的。
+        const mergeOne = (node, target) => {
+            let next = node.next
+            const targetNext = target.next
+            node.next = target
+            target.next = next
+            target = targetNext
+            return target
+        }
+
+        const merge = (left, right) => {
+            let newHead = new ListNode()
+            let node = newHead
+
+            while (left || right) {
+                if (!left) {
+                    node.next = right
+                    break
+                }
+                if (!right) {
+                    node.next = left
+                    break
+                }
+
+                if (left.val < right.val) {
+                    left = mergeOne(node, left)
+                }
+                else {
+                    right = mergeOne(node, right)
+                }
+                node = node.next
+            }
+            return newHead.next
+        }
+
+        var sortList = function (head) {
+            const mergeSort = (head) => {
+                if (!head) return null
+                if (!head.next) return head
+
+                let newHead = new ListNode()
+                newHead.next = head
+
+                let slow = newHead, fast = slow, preSlow
+                while (fast) {
+                    preSlow = slow
+                    slow = slow.next
+                    fast = fast.next && fast.next.next
+                }
+
+                preSlow.next = null //结尾干掉
+                let left = mergeSort(newHead.next), right = mergeSort(slow)
+
+                newHead = merge(left, right)
+
+                return newHead
+            }
+            return mergeSort(head)
+        };
+    </script>
+</body>
+
+</html>

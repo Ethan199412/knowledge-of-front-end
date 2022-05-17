@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个标准的递归
+        var maxAreaOfIsland = function (grid) {
+            let y = grid.length, x = grid[0].length, maxSize = 0
+
+            // let 2 become already visited
+            const calSize = (i, j) => {
+                let size = 0
+                const recur = (i, j) => {
+                    //console.log({i,j})
+                    if (grid[i][j] != 1) return
+                    grid[i][j] = 2
+                    size += 1
+                    if (i + 1 < y) recur(i + 1, j)
+                    if (i - 1 >= 0) recur(i - 1, j)
+                    if (j + 1 < x) recur(i, j + 1)
+                    if (j - 1 >= 0) recur(i, j - 1)
+                }
+                recur(i, j)
+                return size
+            }
+
+            for (let i = 0; i < y; i++) {
+                for (let j = 0; j < x; j++) {
+                    if (grid[i][j] == 1) {
+                        let size = calSize(i, j)
+                        //console.log({size})
+                        maxSize = Math.max(size, maxSize)
+                    }
+                }
+            }
+            return maxSize
+        };
+    </script>
+</body>
+
+</html>
