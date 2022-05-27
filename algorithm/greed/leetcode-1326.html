@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var minTaps = function (n, ranges) {
+            const arr = new Array(n + 1).fill(0)
+
+            for (let i in ranges) {
+                i = Number(i)
+                if (!ranges[i]) continue
+                const left = Math.max(0, i - ranges[i])
+                arr[left] = Math.max(arr[left], i + ranges[i])
+            }
+
+            let end = 0, farCanReach = 0, step = 0
+
+            for (let i = 0; i < arr.length && end < n; end = farCanReach) {
+                step++
+                while (i < arr.length && i <= end) {
+                    farCanReach = Math.max(farCanReach, arr[i])
+                    i++
+                }
+                if (end == farCanReach) return -1
+            }
+            return step
+        };
+    </script>
+</body>
+
+</html>

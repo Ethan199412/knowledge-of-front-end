@@ -13,6 +13,7 @@ import ReduxDemo from "./redux/thunk";
 import PureComponentDemo from "./pureComponent";
 import DecoratorDemo from "./decorator";
 import MyReduxDemo from "./redux/myRedux";
+import HooksDemo from "./hooks/hooksDemo";
 
 const { SubMenu } = Menu;
 
@@ -55,7 +56,11 @@ class App extends Component {
               </Link>
             </Menu.Item>
 
-            <Menu.Item key="4">Hooks</Menu.Item>
+            <Menu.Item key="4">
+              <Link to='/hooks'>
+                Hooks
+              </Link>
+            </Menu.Item>
 
             <Menu.Item key="5">
               <Link to='/mobx'>
@@ -92,6 +97,7 @@ class App extends Component {
               <Route path='/ref' component={RefDemo} />
               <Route path='/context' component={ContextDemo} />
               <Route path='/hoc' component={HocDemo} />
+              <Route path='/hooks' component={HooksDemo} />
               <Route path='/mobx' component={MobxDemo} />
               <Route path='/redux-thunk' component={ReduxDemo} />
               <Route path='/pure-component' component={PureComponentDemo} />
