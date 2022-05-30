@@ -1,18 +1,22 @@
+import { Button } from 'antd';
 import React, { PureComponent, useState } from 'react';
 
-let showSex = false
-function HooksDemo(props) {
-    if (Math.random() > 0.5) {
-        useState(10000)
-    }
-    const [value, setValue] = useState(0)
+let firstRender = true
 
+const [show, setShow] = useState(true)
+function HooksDemo(props) {
+    let age, setAge
+    if (Math.random() < 0.5) {
+        [age, setAge] = useState(10)
+    }
+    const [number, setNumber] = useState(0)
     return (
-        <div>
-            <button onClick={() => setValue(value + 1)}>+</button>
-            {value}
-        </div>
-    )
+        <>
+            <div>age:{age}</div>
+            <div>number:{number}</div>
+            <Button onClick={() => setNumber(number + 1)}>Fred</Button>
+        </>
+    );
 }
 
 export default HooksDemo;

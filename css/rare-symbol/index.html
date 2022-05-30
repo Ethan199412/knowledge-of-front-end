@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+    <style>
+        .container1,
+        .container2,
+        .container3 {
+            height: 300px;
+            border: 1px solid #ccc;
+            display: flex;
+        }
+
+        .container1 .box1 {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* 注意这个选择器的意思是前面有 xx的 xx 元素，所以，是第二个 box1 的选择器 */
+        .container1 .box1+.box1 {
+            margin-left: 5px;
+        }
+
+        /* .container2{
+            display: flex;
+        } */
+
+        .container2 div {
+            width: 100px;
+            height: 100px;
+        }
+
+        .container2 .sub-box2 {
+            width: 50px;
+            height: 50px;
+            background-color: orange;
+        }
+
+        /* 意思是只有第一层被选中 */
+        .container2>div {
+            border: solid 5px skyblue
+        }
+
+         /* 波浪线：同层级，但是后面所有的元素  */
+        .box3~span {
+            color: red
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container1">
+        <div class="box1"></div>
+        <div class="box1"></div>
+        <div class="box1"></div>
+    </div>
+    <div class="container2">
+        <div class="box2">
+            <div class="sub-box2"></div>
+        </div>
+        <div class="box2"></div>
+        <div class="box2"></div>
+    </div>
+    
+    <div class="container3">
+        <span>hehe</span>
+        <div class="box3">
+            <span>hehe</span>
+            <div><span>hehe</span></div>
+        </div>
+        <span>hehe</span>
+        <span>hehe</span>
+    </div>
+    <script>
+
+    </script>
+</body>
+
+</html>
