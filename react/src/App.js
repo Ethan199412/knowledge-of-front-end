@@ -13,7 +13,7 @@ import ReduxDemo from "./redux/thunk";
 import PureComponentDemo from "./pureComponent";
 import DecoratorDemo from "./decorator";
 import MyReduxDemo from "./redux/myRedux";
-import HooksDemo from "./hooks/hooksDemo";
+import HooksDemo from "./hooks";
 
 const { SubMenu } = Menu;
 

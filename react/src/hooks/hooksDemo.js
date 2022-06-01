@@ -3,9 +3,9 @@ import React, { PureComponent, useState } from 'react';
 
 let firstRender = true
 
-const [show, setShow] = useState(true)
 function HooksDemo(props) {
     let age, setAge
+    // 这样使用会报错
     if (Math.random() < 0.5) {
         [age, setAge] = useState(10)
     }
