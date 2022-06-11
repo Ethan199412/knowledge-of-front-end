@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div>跨域带 cookie 测试</div>
+    <script>
+        // axios.default.withCredentials = true
+        axios.get('http://localhost:3001/info', {
+            withCredentials: true,
+        }).then(res => {
+            console.log('[p0.0] res', res)
+            return axios.get('http://localhost:3001/checkCookie', { withCredentials: true })
+        }).then(res => {
+            console.log(res)
+        })
+    </script>
+</body>
+
+</html>
