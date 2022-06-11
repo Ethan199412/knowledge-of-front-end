@@ -14,6 +14,8 @@ import PureComponentDemo from "./pureComponent";
 import DecoratorDemo from "./decorator";
 import MyReduxDemo from "./redux/myRedux";
 import HooksDemo from "./hooks";
+import SuspenseDemo from "./suspense";
+import ComponentDidCatchDemo from "./suspense/componentDidCatchDemo";
 
 const { SubMenu } = Menu;
 
@@ -91,6 +93,12 @@ class App extends Component {
                 My-Redux
               </Link>
             </Menu.Item>
+
+            <Menu.Item key="10">
+              <Link to='/suspense'>
+                Suspense
+              </Link>
+            </Menu.Item>
           </Menu>
           <div className='container'>
             <Switch>
@@ -103,6 +111,7 @@ class App extends Component {
               <Route path='/pure-component' component={PureComponentDemo} />
               <Route path='/decorator' component={DecoratorDemo} />
               <Route path='/my-redux' component={MyReduxDemo} />
+              <Route path='/suspense' component={ComponentDidCatchDemo} />
             </Switch>
           </div>
         </BrowserRouter>
