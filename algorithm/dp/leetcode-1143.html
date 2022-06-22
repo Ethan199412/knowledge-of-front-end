@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // dp 可以比字符串大一圈，这样可以避免频繁的写 if else
+        var longestCommonSubsequence = function (text1, text2) {
+            const l1 = text1.length, l2 = text2.length
+
+            const genMatrix = (l1, l2) => {
+                const dp = new Array(l1)
+                for (let i = 0; i < l1; i++) {
+                    dp[i] = new Array(l2).fill(0)
+                }
+                return dp
+            }
+
+            const dp = genMatrix(l1 + 1, l2 + 1)
+
+            for (let i = 0; i < l1 + 1; i++) {
+                for (let j = 0; j < l2 + 1; j++) {
+                    if (i == 0 || j == 0) {
+                        dp[i][j] = 0
+                    }
+                    else {
+                        if (text1[i - 1] == text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1
+                        else dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1])
+                    }
+                }
+            }
+            return dp[l1][l2]
+        };
+    </script>
+</body>
+
+</html>

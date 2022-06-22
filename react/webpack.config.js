@@ -3,7 +3,7 @@ const webpack = require("webpack");
 
 module.exports = {
   entry: "./src/index.js",
-  mode: "production",
+  mode: "development",
   module: {
     rules: [
       {
@@ -38,7 +38,6 @@ module.exports = {
     contentBase: path.join(__dirname, "public/"),
     port: 3002,
     publicPath: "http://localhost:3002/dist/",
-    hot: true,
     historyApiFallback: {
       rewrites:[{
         from:'/ref',
@@ -55,8 +54,8 @@ module.exports = {
       }]
     }
   },
-  devtool:'inline-source-map',
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ]
+  devtool:'eval-cheap-module-source-map',
+  // plugins: [
+  //   new webpack.HotModuleReplacementPlugin(),
+  // ]
 };

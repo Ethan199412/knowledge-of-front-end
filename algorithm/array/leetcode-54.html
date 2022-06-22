@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var spiralOrder = function (matrix) {
+            let x = matrix[0].length, y = matrix.length - 1
+            const res = []
+            let i = 0, j = -1
+
+            const collect = () => {
+                res.push(matrix[i][j])
+            }
+
+            const goUp = (step) => {
+                for (let k = 0; k < step; k++) {
+                    i -= 1
+                    collect()
+                }
+            }
+
+            const goDown = (step) => {
+                for (let k = 0; k < step; k++) {
+                    i += 1
+                    collect()
+                }
+            }
+
+            const goRight = (step) => {
+                for (let k = 0; k < step; k++) {
+                    j += 1
+                    collect()
+                }
+            }
+
+            const goLeft = (step) => {
+                for (let k = 0; k < step; k++) {
+                    j -= 1
+                    collect()
+                }
+            }
+
+            while (true) {
+                if (!x) break
+                goRight(x)
+                x--
+
+                if (!y) break
+                goDown(y)
+                y--
+
+                if (!x) break
+                goLeft(x)
+                x--
+
+                if (!y) break
+                goUp(y)
+                y--
+            }
+            return res
+        };
+
+        /* opt version */
+        var spiralOrder = function (matrix) {
+            let x = matrix[0].length, y = matrix.length - 1
+            const res = []
+            let i = 0, j = -1
+
+            const collect = () => {
+                res.push(matrix[i][j])
+            }
+
+            const actionHandler = (type, offset, step) => {
+                for (let k = 0; k < step; k++) {
+                    if (type == 'i') i += offset
+                    if (type == 'j') j += offset
+                    collect()
+                }
+                return step - 1
+            }
+
+            while (true) {
+                if (!x) break
+                x = actionHandler('j', 1, x)
+
+                if (!y) break
+                y = actionHandler('i', 1, y)
+
+                if (!x) break
+                x = actionHandler('j', -1, x)
+
+                if (!y) break
+                y = actionHandler('i', -1, y)
+            }
+            return res
+        };
+    </script>
+</body>
+
+</html>

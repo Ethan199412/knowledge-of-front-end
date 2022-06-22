@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+    <style>
+        ul {
+            width: 600px;
+            height: 50px;
+            background-color: #292929;
+            position: absolute;
+            left: 50px;
+            top: 50px;
+        }
+
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        li {
+            position: relative;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            display: inline-block;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        li:before {
+            content: '';
+            border-right: 1px dashed #888888;
+            height: 100%;
+            width: 1px;
+            display: block;
+            position: absolute;
+            background-color: orange;
+            /* position: absolute; */
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>第一个</li>
+        <li>第二个</li>
+        <li>第三个</li>
+        <li>第四个</li>
+        <li>第五个</li>
+    </ul>
+</body>
+
+</html>

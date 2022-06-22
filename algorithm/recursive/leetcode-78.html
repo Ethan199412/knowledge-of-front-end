@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个比较标准的递归，关键是编程前的思路要清晰。
+        var subsets = function (nums) {
+            const res = [[]]
+            const recur = (arr, index) => {
+                if (index == nums.length) return
+                for (let i = index; i < nums.length; i++) {
+                    const nextArr = [...arr, nums[i]]
+                    res.push(nextArr)
+                    recur(nextArr, i + 1)
+                }
+            }
+            recur([], 0)
+            return res
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 这个题设计还是相当巧妙的，难在写法。
+        const genStr = (s, num) => {
+            res = ''
+            for (let i = 0; i < num; i++) {
+                res += s
+            }
+            return res
+        }
+
+        var decodeString = function (s) {
+            const stack = [{ str: '', num: 1 }]
+
+            let num = ''
+
+            for (let ch of s) {
+                if (ch >= 0 && ch <= 9) {
+                    num += ch
+                }
+                else if (ch == '[') {
+                    stack.push({ str: '', num })
+                    num = ''
+                }
+                else if (ch == ']') {
+                    const { str, num } = stack.pop()
+                    stack[stack.length - 1].str += genStr(str, num)
+                }
+                else stack[stack.length - 1].str += ch
+            }
+            return stack[0].str
+        };
+    </script>
+</body>
+
+</html>

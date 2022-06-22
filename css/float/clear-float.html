@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Document</title>
+    <style>
+        .news,
+        .news2,
+        .news3 {
+            background-color: gray;
+            border: solid 1px black;
+        }
+
+        img {
+            float: left;
+            width: 100px;
+            height: 100px;
+        }
+
+        p {
+            float: right;
+        }
+
+        .clear {
+            clear: both
+        }
+
+        .news2 {
+            overflow: hidden;
+        }
+
+        .news3:after{
+            content:'';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+
+        /* .news3{
+            zoom: 1;
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- 浮动元素不占用控件 -->
+    <div class="news">
+        <img src="./cat.jpg" />
+        <p>some text</p>
+        <div class="clear"></div>
+    </div>
+    <br />
+    <div class="news2">
+        <img src="./cat.jpg" />
+        <p>some text</p>
+    </div>
+    <br />
+    <div class="news3">
+        <img src="./cat.jpg" />
+        <p>some text</p>
+    </div>
+    <script></script>
+
+</body>
+
+</html>
