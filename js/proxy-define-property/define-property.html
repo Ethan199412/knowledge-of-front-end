@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="title">你好</h1>
+    <input id='content' />
+    <script>
+        obj = {
+        }
+        Object.defineProperties(obj, {
+            'title': {
+                get() {
+                    return title.innerHTML
+                },
+                set(value) {
+                    title.innerHTML = value
+                }
+            },
+            'content': {
+                get() {
+                    return content.value
+                },
+                set(value) {
+                    content.value = value
+                }
+            }
+        })
+
+        obj.title = '你好'
+        obj.content = '邓小平'
+    </script>
+</body>
+
+</html>

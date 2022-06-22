@@ -61,5 +61,9 @@ module.exports = class MyPlugin {
             console.log('done');
             // console.log(compilation)
         })
+
+        compiler.hooks.done.tap('My Plugin', (stats) => {
+            console.log('Bravo!');
+        });
     }
 }

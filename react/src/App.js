@@ -11,7 +11,9 @@ import HocDemo from './hoc'
 import MobxDemo from './mobx'
 import ReduxDemo from "./redux/thunk";
 import PureComponentDemo from "./pureComponent";
+import { SuspenseDemo } from "./suspense";
 
+// const SuspenseDemo = React.lazy(()=>import('./suspense'))
 const { SubMenu } = Menu;
 
 class App extends Component {
@@ -72,6 +74,12 @@ class App extends Component {
                 Pure-Component
               </Link>
             </Menu.Item>
+
+            <Menu.Item key="8">
+              <Link to='/suspense'>
+                  Suspense
+              </Link>
+            </Menu.Item>
           </Menu>
           <div className='container'>
             <Switch>
@@ -81,6 +89,7 @@ class App extends Component {
               <Route path='/mobx' component={MobxDemo} />
               <Route path='/redux-thunk' component={ReduxDemo} />
               <Route path='/pure-component' component={PureComponentDemo} />
+              <Route path='/suspense' component={SuspenseDemo} />
             </Switch>
           </div>
         </BrowserRouter>
