@@ -6,9 +6,9 @@ import { GameControl } from './GameControl';
 const food = new Food()
 const panel = new ScorePanel()
 
-setInterval(() => {
-    food.change()
-    panel.addScore()
-}, 1000)
+// setInterval(() => {
+//     food.change()
+//     panel.addScore()
+// }, 1000)
 
 const gameControl = new GameControl()
