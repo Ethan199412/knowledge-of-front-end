@@ -11,6 +11,8 @@ export class ScorePanel {
 
   private updateLevel: number;
 
+  interval: number = 150
+
   constructor(maxLevel: number = 10, updateLevel: number = 10) {
     this.scoreEle = document.getElementById("score");
     this.levelEle = document.getElementById("level");
@@ -23,7 +25,7 @@ export class ScorePanel {
     console.log("[p0.1] score", this.score);
     this.scoreEle.innerHTML = this.score + "";
 
-    if (this.score % 10 == 0) {
+    if (this.score % this.updateLevel == 0) {
       this.levelUp();
     }
   }
@@ -32,6 +34,7 @@ export class ScorePanel {
     if (this.level < 10) {
       this.level++;
       this.levelEle.innerHTML = this.level + "";
+      this.interval -= 10
     }
   }
 }

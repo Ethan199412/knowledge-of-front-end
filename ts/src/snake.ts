@@ -7,6 +7,8 @@ export class Snake {
 
   element: HTMLElement;
 
+  private isDead: boolean
+
   constructor() {
     this.element = document.getElementById("snake");
     this.head = document.querySelector("#snake > div");
@@ -23,24 +25,57 @@ export class Snake {
 
   set X(value: number) {
     console.log("[p0] head", this.head.style.left);
-    this.head.style.left = genPx(value);
+    if (value <= 290 && value >= 0) {
+      this.moveBody()
+      this.head.style.left = genPx(value);
+      return
+    }
+    this.isDead = true
   }
 
   set Y(value: number) {
     console.log("[p1] head", this.head.style.top);
-    this.head.style.top = genPx(value);
+    if (value <= 290 && value >= 0) {
+      this.moveBody()
+      this.head.style.top = genPx(value);
+      return
+    }
+    this.isDead = true
   }
 
   addBody() {
     this.element.insertAdjacentHTML("beforeend", "<div></div>");
     console.log("[p2]", this.bodies);
 
-    for (let i = 1; i < this.bodies.length; i++) {
-      let body = this.bodies[i] as HTMLElement;
-      let prevBody = this.bodies[i - 1] as HTMLElement;
-      console.log("[p2.1]", { body });
-      body.style.left = genPx(prevBody.offsetLeft);
-      body.style.top = genPx(prevBody.offsetTop);
+    let last = this.bodies[this.bodies.length - 1] as HTMLElement, lastPrev = this.bodies[this.bodies.length - 2] as HTMLElement
+    last.style.top = genPx(lastPrev.offsetTop)
+    last.style.left = genPx(lastPrev.offsetLeft)
+
+    // for (let i = 1; i < this.bodies.length; i++) {
+    //   let body = this.bodies[i] as HTMLElement;
+    //   let prevBody = this.bodies[i - 1] as HTMLElement;
+    //   console.log("[p2.1]", { body });
+    //   body.style.left = genPx(prevBody.offsetLeft);
+    //   body.style.top = genPx(prevBody.offsetTop);
+    // }
+  }
+
+  checkDead(){
+    if(this.isDead){
+      alert('蛇死了')
+      return true
+    }
+  }
+
+  moveBody(){
+    const { length } = this.bodies
+    if (length > 1) {
+      for (let i = this.bodies.length - 1; i > 0; i--) {
+        let body = this.bodies[i] as HTMLElement, prevBody = this.bodies[i - 1] as HTMLElement
+        console.log('[p0.1]', { pTop: prevBody.offsetTop, pLeft: prevBody.offsetLeft, bTop: body.offsetTop, bLeft: body.offsetLeft })
+        body.style.left = genPx(prevBody.offsetLeft)
+        body.style.top = genPx(prevBody.offsetTop)
+      }
     }
   }
 }
