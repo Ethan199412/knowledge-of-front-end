@@ -28,7 +28,7 @@ export class GameControl {
 
   iter() {
     setTimeout(() => {
-      if(this.snake.checkDead()) return
+      if (this.snake.checkDead()) return
       this.run();
       const { X, Y } = this.snake;
       if (this.eatFood(X, Y)) {
@@ -44,26 +44,43 @@ export class GameControl {
   handleKeyDown(e: KeyboardEvent) {
     console.log(e.key, "this", this);
     // 如果是反的，不变换
-    if(DIRECTION_MAP[e.key as keyof IDirection] == this.direction) return
+    // if(DIRECTION_MAP[e.key as keyof IDirection] == this.direction) return
     this.direction = e.key;
   }
 
   run() {
     let { X, Y } = this.snake;
-    console.log({ X, Y, d: this.direction });
+    // console.log({ X, Y, d: this.direction });
+
+    let newValue
     switch (this.direction) {
       case "ArrowUp":
-        this.snake.Y = Y - 10;
+        newValue = Y - 10
+        if (this.snake.checkMeetSecondPartOfBody(null, newValue)) {
+          newValue = Y + 10
+        }
+        this.snake.Y = newValue;
         break;
       case "ArrowDown":
-        console.log({ Y });
-        this.snake.Y = Y + 10;
+        newValue = Y + 10
+        if (this.snake.checkMeetSecondPartOfBody(null, newValue)) {
+          newValue = Y - 10
+        }
+        this.snake.Y = newValue;
         break;
       case "ArrowLeft":
-        this.snake.X -= 10;
+        newValue = X - 10
+        if (this.snake.checkMeetSecondPartOfBody(newValue)) {
+          newValue = X + 10
+        }
+        this.snake.X = newValue;
         break;
       case "ArrowRight":
-        this.snake.X += 10;
+        newValue = X + 10
+        if (this.snake.checkMeetSecondPartOfBody(newValue)) {
+          newValue = X - 10
+        }
+        this.snake.X = newValue;
         break;
     }
 

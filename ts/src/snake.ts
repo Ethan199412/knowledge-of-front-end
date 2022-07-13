@@ -28,6 +28,7 @@ export class Snake {
     if (value <= 290 && value >= 0) {
       this.moveBody()
       this.head.style.left = genPx(value);
+      this.checkBumbIntoBody()
       return
     }
     this.isDead = true
@@ -38,9 +39,24 @@ export class Snake {
     if (value <= 290 && value >= 0) {
       this.moveBody()
       this.head.style.top = genPx(value);
+      this.checkBumbIntoBody()
       return
     }
     this.isDead = true
+  }
+
+  checkMeetSecondPartOfBody(X?: number, Y?: number) {
+    if (this.bodies.length < 2) return false
+
+    const second = this.bodies[1] as HTMLElement
+    if (X && second.offsetLeft == X) {
+      return true
+    }
+    if (Y && second.offsetTop == Y) {
+      return true
+    }
+
+    return false
   }
 
   addBody() {
@@ -60,14 +76,25 @@ export class Snake {
     // }
   }
 
-  checkDead(){
-    if(this.isDead){
+  checkDead() {
+    if (this.isDead) {
       alert('蛇死了')
       return true
     }
   }
 
-  moveBody(){
+  checkBumbIntoBody() {
+    const { X, Y } = this
+    for (let i = 1; i < this.bodies.length; i++) {
+      let body = this.bodies[i]
+      const { offsetLeft, offsetTop } = body as HTMLElement
+      if (X == offsetLeft && Y == offsetTop) {
+        this.isDead = true
+      }
+    }
+  }
+
+  moveBody() {
     const { length } = this.bodies
     if (length > 1) {
       for (let i = this.bodies.length - 1; i > 0; i--) {
