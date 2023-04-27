@@ -1,3 +1,3 @@
-[submodule "submodule"]
-	path = submodule
-	url = ./submodule
+[submodule "react/src/submodule"]
+	path = react/src/submodule
+	url = /Users/lijiahao/Documents/private-project/KnowledgeOfFrontEnd/react/src/submodule
