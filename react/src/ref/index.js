@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 // you should import `lodash` as a whole module
 import lodash from 'lodash';
 import axios from 'axios';
+import SubComponent from '../submodule/SubComponent';
 
 const ITEMS_API_URL = 'https://example.com/api/items';
 const DEBOUNCE_DELAY = 500;
@@ -43,6 +44,7 @@ class Autocomplete extends Component {
                     <input onChange={this.handleChange} type="text" className="input" />
                 </div>
                 <div className="list is-hoverable" />
+                <SubComponent/>
             </div>
         );
     }
