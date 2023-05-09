@@ -1,6 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
 
+const port = 3006
+
 module.exports = {
   entry: "./src/index.js",
   mode: "development",
@@ -36,8 +38,8 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
-    port: 3002,
-    publicPath: "http://localhost:3002/dist/",
+    port,
+    publicPath: `http://localhost:${port}/dist/`,
     historyApiFallback: {
       rewrites:[{
         from:'/ref',
@@ -55,7 +57,4 @@ module.exports = {
     }
   },
   devtool:'eval-cheap-module-source-map',
-  // plugins: [
-  //   new webpack.HotModuleReplacementPlugin(),
-  // ]
 };

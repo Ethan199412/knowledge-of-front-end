@@ -1,0 +1,21 @@
+
+// 本例为了验证 less 的 mixin 特性
+.box{
+    // background-color: skyblue;
+    width: 200px;
+    height: 100px;
+    .box1{
+        width:10px;
+        height: 10px
+    }
+}
+
+.blue-box{
+    .box.box1();
+    background-color: skyblue;
+}
+
+.blue-box2{
+    .box();
+    background-color: skyblue;
+}

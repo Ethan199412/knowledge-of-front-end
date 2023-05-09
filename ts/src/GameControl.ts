@@ -45,7 +45,7 @@ export class GameControl {
     console.log(e.key, "this", this);
     // 如果是反的，不变换
     // if(DIRECTION_MAP[e.key as keyof IDirection] == this.direction) return
-    this.direction = e.key;
+    this.direction = e.key; 
   }
 
   run() {
