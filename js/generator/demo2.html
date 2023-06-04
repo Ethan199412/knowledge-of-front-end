@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** generator 还可以结合 promise 和 async/await 改造异步逻辑的写法
+         * 当然我个人觉得这种改造没什么必要，直接用 async await 就能应付绝大
+         * 多数场景，引入 generator 一定程度上写法简洁，但也增加了复杂度，但是
+         * 作为合格的前端程序员，你要知道可以这么用。
+         * 总结：yield 的本质就是随着调用的次数增加，每次返回的结果都不一样的一种
+         * 特殊的函数，你可以理解为是一种自带状态的函数。它最有代表性的使用方式还是
+         * 结合 for of 一起使用的场景。但是记住它并不是不可替代的。
+         * */
+        function f1() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(1)
+                }, 1000)
+            })
+        }
+
+        function f2() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(2)
+                }, 2000)
+            })
+        }
+
+        function f3() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(3)
+                }, 3000)
+            })
+        }
+
+        function* gen() {
+            yield f1()
+            yield f2()
+            yield f3()
+        }
+        async function run() {
+            for (const promise of gen()) {
+                const res = await promise
+                console.log('result is:', res)
+            }
+        }
+
+        run()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         *  generator 有两种用法，一种是 for of，一种是 .next。可能有人会问 generator 有什么用
+         * 比如现在有一个需求，写一个函数，每次调用这个函数，返回斐波那契的下一个数字，如果没有 generator
+         * 你需要用闭包的方式实现，因为你需要记住状态。从这一点上，我们可以看到 generator 一个相当关键
+         * 的作用，它是一个可以记住状态的函数。
+         * */
+
+        function* fib(max) {
+            const arr = [1, 1]
+            for (let i = 0; i < max; i++) {
+                const { length } = arr
+                if (i >= 2)
+                    arr.push(arr[length - 1] + arr[length - 2])
+                yield arr[i]
+            }
+            return
+        }
+
+        for (let e of fib(5)) {
+            console.log(e)
+        }
+
+    </script>
+</body>
+
+</html>
