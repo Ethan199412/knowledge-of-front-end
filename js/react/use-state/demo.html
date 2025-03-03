@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        /** 
+         * 这个例子想表达的是，hooks 不能放在条件分支里
+         * 因为 react 会根据 hooks 的顺序给相应的 state，setState
+         * 绑定相应的 index，如果放在条件分支里，react 在不同的渲染
+         * 次数里面，会给相同的 hooks 绑定不同的 index，导致状态错乱
+        */
+      globalStore = {
+        values: [],
+        index: 0,
+      };
+      function useState(initialValue) {
+        if (!globalStore[globalStore.index]) {
+          globalStore[globalStore.index] = initialValue;
+        }
+
+        const currentIndex = globalStore.index;
+
+        const setState = (newVal) => {
+          globalStore[currentIndex] = newVal;
+        };
+
+        globalStore.index++;
+        return [globalStore[currentIndex], setState];
+      }
+
+      function TestComponent(condition) {
+        let name, setName;
+        if (condition) {
+           [name, setName] = useState("John");
+        }
+        const [age, setAge] = useState(10);
+
+        setAge(12);
+
+        if(condition) {
+          setName("Lily");
+        }
+
+        return { age, name };
+      }
+
+      function runComp(Comp, condition) {
+        globalStore.index = 0;
+        const { age, name } = Comp(condition);
+        console.log("[p1.2]", { age, name });
+      }
+
+      runComp(TestComponent, false);
+      runComp(TestComponent, true);
+    </script>
+  </body>
+</html>
